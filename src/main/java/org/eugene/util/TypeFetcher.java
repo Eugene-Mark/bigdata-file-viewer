@@ -1,11 +1,11 @@
 package org.eugene.util;
 
 public class TypeFetcher {
-    public static String INT = "int";
-    public static String LONG = "long";
-    public static String DOUBLE = "double";
-    public static String FLOAT = "float";
-    public static String STRING = "string";
+    private final static String INT = "int";
+    private final static String LONG = "long";
+    private final static String DOUBLE = "double";
+    private final static String FLOAT = "float";
+    private final static String STRING = "string";
 
     public static String getType(String schema){
         if (schema.contains(INT))

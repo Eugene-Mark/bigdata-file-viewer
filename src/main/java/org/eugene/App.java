@@ -15,9 +15,8 @@ import org.eugene.ui.CustomizedMenuBar;
 public class App extends Application
 {
     @Override
-    public void start(Stage stage) throws Exception{
+    public void start(Stage stage){
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
-        //Path path = new Path("/Users/upma/gene/000000_0.parquet");
         MenuBar menuBar = new CustomizedMenuBar(stage);
         VBox vbox = new VBox(menuBar);
         double width = 800;

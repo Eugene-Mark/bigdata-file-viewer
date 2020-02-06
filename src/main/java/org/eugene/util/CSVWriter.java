@@ -1,6 +1,5 @@
 package org.eugene.util;
 
-import oracle.jvm.hotspot.jfr.JFRTypeIDs;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;

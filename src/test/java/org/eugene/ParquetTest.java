@@ -5,13 +5,9 @@ import org.apache.hadoop.fs.Path;
 import org.eugene.core.parquet.ParquetReader;
 import org.junit.Test;
 
-import javax.print.attribute.URISyntax;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import static junit.framework.Assert.assertTrue;
-import static junit.framework.Assert.assertFalse;
 import static junit.framework.TestCase.assertNotNull;
 
 public class ParquetTest {

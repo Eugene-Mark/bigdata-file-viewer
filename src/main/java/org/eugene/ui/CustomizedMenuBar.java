@@ -1,43 +1,26 @@
 package org.eugene.ui;
 
-import com.sun.tools.corba.se.idl.ValueBoxEntry;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Menu;
-import javafx.scene.control.MenuBar;
-import javafx.scene.control.MenuItem;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
-import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
 import org.eugene.controller.TableRenderer;
-import org.eugene.core.parquet.ParquetReader;
 import org.eugene.util.CSVWriter;
-import org.eugene.util.TypeFetcher;
 
-import java.awt.*;
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 public class CustomizedMenuBar extends MenuBar {
-    private MenuItem subCSV;
-    private TextField textField;
-    private Button goButton;
-    private MenuItem selectPropertiesMenuItem;
+    private final MenuItem subCSV;
+    private final TextField textField;
+    private final Button goButton;
+    private final MenuItem selectPropertiesMenuItem;
     private boolean firstTime = true;
 
     public CustomizedMenuBar(Stage stage){
@@ -113,9 +96,7 @@ public class CustomizedMenuBar extends MenuBar {
         selectPropertiesMenuItem.setOnAction(event -> {
             selectPropertyDialog.init(stage, tableRenderer);
             Optional<List<String>> result = selectPropertyDialog.getDialog().showAndWait();
-            if (result.isPresent()){
-                tableRenderer.refreshTable(result.get());
-            }
+            result.ifPresent(tableRenderer::refreshTable);
         });
         view.getItems().add(selectPropertiesMenuItem);
 

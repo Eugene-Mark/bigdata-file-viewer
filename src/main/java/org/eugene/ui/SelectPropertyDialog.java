@@ -1,14 +1,11 @@
 package org.eugene.ui;
 
-import com.google.common.collect.Table;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.web.WebView;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import org.apache.avro.Schema;
 import org.eugene.controller.TableRenderer;
@@ -16,16 +13,16 @@ import org.eugene.controller.TableRenderer;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SelectPropertyDialog {
+class SelectPropertyDialog {
     private Dialog<List<String>> dialog;
 
     public void init(Stage stage, TableRenderer tableRenderer){
         Schema schema = tableRenderer.getSchema();
-        List<String> properties = new ArrayList<String>();
+        List<String> properties = new ArrayList<>();
         for (Schema.Field field: schema.getFields()){
             properties.add(field.name());
         }
-        dialog = new Dialog<List<String>>();
+        dialog = new Dialog<>();
         VBox vBox = new VBox();
         VBox checkBoxGroup = new VBox(2);
         ScrollPane scrollPane = new ScrollPane();
@@ -66,7 +63,7 @@ public class SelectPropertyDialog {
         ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(okButtonType);
         Node okButton = dialog.getDialogPane().lookupButton(okButtonType);
-        List<String> result = new ArrayList<String>();
+        List<String> result = new ArrayList<>();
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == okButtonType){
                 for (Node node: checkBoxGroup.getChildren()) {

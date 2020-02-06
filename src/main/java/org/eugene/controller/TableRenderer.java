@@ -5,7 +5,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
-import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -13,7 +12,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
@@ -23,16 +21,19 @@ import org.eugene.ui.Notifier;
 import org.eugene.util.TypeFetcher;
 
 import java.io.File;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class TableRenderer {
 
     private List<GenericData.Record> list;
-    private Stage stage;
+    private final Stage stage;
     private TableView<List<StringProperty>> tableView;
     private int rowNum = 0;
     private Pagination pagination;
-    private ParquetReader reader = new ParquetReader();
+    private final ParquetReader reader = new ParquetReader();
     private Schema schema;
     private List<String> showingList;
     private List<String> propertyList;
@@ -79,8 +80,8 @@ public class TableRenderer {
         if (status) {
 
             initTable();
-            showingList = new ArrayList<String>();
-            propertyList = new ArrayList<String>();
+            showingList = new ArrayList<>();
+            propertyList = new ArrayList<>();
             for (Schema.Field field: schema.getFields())
             {
                 String property = field.name();
@@ -108,7 +109,7 @@ public class TableRenderer {
 
     private void refreshMetaInfo(){
         leftVBox.getChildren().clear();
-        Map<String, String> schemaMap = new HashMap<String, String>();
+        Map<String, String> schemaMap = new HashMap<>();
         for (Schema.Field field: schema.getFields())
         {
             String name = field.name();
@@ -208,7 +209,7 @@ public class TableRenderer {
         }
         for (int i = start; i < end; i++) {
             GenericData.Record r = list.get(i);
-            List<StringProperty> row = new ArrayList<StringProperty>();
+            List<StringProperty> row = new ArrayList<>();
             int index = 0;
             for (int j = 0; j < colNumber; j++){
                 if(showingList.contains(propertyList.get(j))){

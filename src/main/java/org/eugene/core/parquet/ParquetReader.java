@@ -13,7 +13,7 @@ import java.util.List;
 
 public class ParquetReader {
     public List<GenericData.Record> read(Path path){
-        List<GenericData.Record> list = new ArrayList<GenericData.Record>();
+        List<GenericData.Record> list = new ArrayList<>();
         try{
             Configuration conf = new Configuration();
             InputFile inputFile = HadoopInputFile.fromPath(path, conf);
