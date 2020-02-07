@@ -1,5 +1,9 @@
 package org.eugene.ui;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import javafx.geometry.Insets;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
@@ -69,6 +73,11 @@ public class Dashboard {
     }
 
     private void refreshMetaPane(Schema schema, Accordion accordion){
+        String schemaJson = schema.toString();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        JsonParser jp = new JsonParser();
+        JsonElement je = jp.parse(schemaJson);
+        String prettySchemaJson = gson.toJson(je);
         Map<String, String> schemaMap = new HashMap<>();
         for (Schema.Field field: schema.getFields())
         {
@@ -76,7 +85,6 @@ public class Dashboard {
             String type = TypeFetcher.getType(field.schema().toString());
             schemaMap.put(name,type);
         }
-
 
         TitledPane metaPane = new TitledPane();
         metaPane.setText("Schema Information");
@@ -86,10 +94,9 @@ public class Dashboard {
         });
         TextArea textArea = new TextArea();
         textArea.setWrapText(true);
-        textArea.setText(schema.toString());
-        System.out.println("name:" + schema.getName());
-        System.out.println("namespace:" + schema.getNamespace());
-        System.out.println("Type" + schema.getType());
+        textArea.setEditable(false);
+        textArea.setText(prettySchemaJson);
+
         metaBox.getChildren().add(textArea);
         metaPane.setContent(metaBox);
         accordion.getPanes().add(metaPane);

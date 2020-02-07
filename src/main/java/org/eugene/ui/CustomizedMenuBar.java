@@ -1,5 +1,6 @@
 package org.eugene.ui;
 
+import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -61,8 +62,9 @@ public class CustomizedMenuBar extends MenuBar {
         Menu view = new Menu();
         view.setText("View");
         CustomMenuItem pageRowNumItem = new CustomMenuItem();
-        Label label = new Label("Row number per page");
-        label.setTextFill(Color.YELLOWGREEN);
+        Label label = new Label("  Maximum Row Number per Page");
+        label.setTextFill(Color.gray(0.8));
+        label.setPadding(new Insets(5,0,5,0));
         textField = new TextField();
         textField.setText(String.valueOf(Constants.MAX_ROW_NUM));
         goButton = new Button("Go");
