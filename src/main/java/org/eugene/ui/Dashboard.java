@@ -31,6 +31,44 @@ public class Dashboard {
 
     public void refresh(Schema schema, File selectedFile, int rowNumber, int columnNumber){
         vBox.getChildren().clear();
+        Accordion accordion = new Accordion();
+        refreshSummaryPane(selectedFile, rowNumber, columnNumber, accordion);
+        refreshMetaPane(schema, accordion);
+        vBox.getChildren().add(accordion);
+    }
+
+    private void refreshSummaryPane(File selectedFile, int rowNumber, int columnNumber, Accordion accordion){
+        final int fontSize = 15;
+        final int padding = 10;
+        TitledPane summaryPane = new TitledPane();
+        summaryPane.setText("Basic Information");
+
+        Label nameKey = new Label("File name:   ");
+        nameKey.setFont(Font.font("Arial", FontWeight.BLACK, fontSize));
+        Label name = new Label(selectedFile.getName());
+        name.setFont(Font.font(fontSize));
+        HBox nameHBox = new HBox(nameKey, name);
+        nameHBox.setPadding(new Insets(padding,padding,0,padding));
+
+        Label rowNumberKey = new Label("Row number:   ");
+        rowNumberKey.setFont(Font.font("Arial", FontWeight.BLACK, fontSize));
+        Label rowLabel = new Label(String.valueOf(rowNumber));
+        rowLabel.setFont(Font.font(fontSize));
+        HBox rowNumberHBox = new HBox(rowNumberKey, rowLabel);
+        rowNumberHBox.setPadding(new Insets(padding,padding,0,padding));
+
+        Label colNumberKey = new Label("Column number:   ");
+        colNumberKey.setFont(Font.font("Arial", FontWeight.BLACK, fontSize));
+        Label columnLabel = new Label(String.valueOf(columnNumber));
+        columnLabel.setFont(Font.font(fontSize));
+        HBox colNumberHBox = new HBox(colNumberKey, columnLabel);
+        colNumberHBox.setPadding(new Insets(padding,padding,0,padding));
+
+        summaryPane.setContent(new VBox(nameHBox, rowNumberHBox, colNumberHBox));
+        accordion.getPanes().add(summaryPane);
+    }
+
+    private void refreshMetaPane(Schema schema, Accordion accordion){
         Map<String, String> schemaMap = new HashMap<>();
         for (Schema.Field field: schema.getFields())
         {
@@ -38,30 +76,8 @@ public class Dashboard {
             String type = TypeFetcher.getType(field.schema().toString());
             schemaMap.put(name,type);
         }
-        Accordion accordion = new Accordion();
-        TitledPane summaryPane = new TitledPane();
-        summaryPane.setText("Basic Information");
-        Label nameKey = new Label("File name:   ");
-        nameKey.setFont(Font.font("Arial", FontWeight.BLACK, 15));
-        Label name = new Label(selectedFile.getName());
-        name.setFont(Font.font(15));
-        HBox nameHBox = new HBox(nameKey, name);
-        nameHBox.setPadding(new Insets(10,10,0,10));
-        Label rowNumberKey = new Label("Row number:   ");
-        rowNumberKey.setFont(Font.font("Arial", FontWeight.BLACK, 15));
-        Label rowLabel = new Label(String.valueOf(rowNumber));
-        rowLabel.setFont(Font.font(15));
-        HBox rowNumberHBox = new HBox(rowNumberKey, rowLabel);
-        rowNumberHBox.setPadding(new Insets(10,10,0,10));
 
-        Label colNumberKey = new Label("Column number:   ");
-        colNumberKey.setFont(Font.font("Arial", FontWeight.BLACK, 15));
-        Label columnLabel = new Label(String.valueOf(columnNumber));
-        columnLabel.setFont(Font.font(15));
-        HBox colNumberHBox = new HBox(colNumberKey, columnLabel);
-        colNumberHBox.setPadding(new Insets(10,10,0,10));
 
-        summaryPane.setContent(new VBox(nameHBox, rowNumberHBox, colNumberHBox));
         TitledPane metaPane = new TitledPane();
         metaPane.setText("Schema Information");
         VBox metaBox = new VBox();
@@ -76,8 +92,6 @@ public class Dashboard {
         System.out.println("Type" + schema.getType());
         metaBox.getChildren().add(textArea);
         metaPane.setContent(metaBox);
-        accordion.getPanes().add(summaryPane);
         accordion.getPanes().add(metaPane);
-        vBox.getChildren().add(accordion);
     }
 }

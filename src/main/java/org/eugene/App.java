@@ -22,7 +22,7 @@ public class App extends Application
         double width = 800;
         double height = 600;
         Scene scene = new Scene(vbox, width, height);
-        stage.setTitle("BD File Viewer");
+        stage.setTitle("Bigdata File Viewer");
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();

@@ -1,6 +1,5 @@
 package org.eugene.controller;
 
-import javafx.stage.Stage;
 import org.apache.avro.Schema;
 import org.eugene.ui.Dashboard;
 

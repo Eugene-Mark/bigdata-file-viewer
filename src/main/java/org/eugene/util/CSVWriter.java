@@ -34,22 +34,23 @@ public class CSVWriter {
                             out.println("NULL");
                         else {
                                 if (record.get(i).toString().contains(",")) {
-                                    out.print("\"" + record.get(i) + "\"");
+                                    out.println("\"" + record.get(i) + "\"");
                                 }else{
                                     out.println(record.get(i));
                                 }
                              }
                     }else{
-                        if (record.get(i) == null)
-                            out.println("NULL");
+                        if (record.get(i) == null){
+                            out.print("NULL");
+                        }
                         else{
                             if (record.get(i).toString().contains(",")){
                                 out.print("\"" + record.get(i) + "\"");
                             }else{
                                 out.print(record.get(i));
                             }
-                            out.print(",");
                         }
+                        out.print(",");
                     }
                 }
             }
