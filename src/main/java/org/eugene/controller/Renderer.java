@@ -57,14 +57,11 @@ public class Renderer {
     }
 
     private boolean prepareData(){
-        ProgressWorker progressWorker = new ProgressWorker();
         FileChooser filechooser = new FileChooser();
         selectedFile = filechooser.showOpenDialog(stage);
-        progressWorker.start(stage);
         Path path = new Path(selectedFile.getAbsolutePath());
         ParquetReader reader = new ParquetReader();
         List<GenericData.Record> data = reader.read(path);
-        progressWorker.end();
         if(data == null)
         {
             return false;

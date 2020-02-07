@@ -1,7 +1,6 @@
 package org.eugene.controller;
 
 import javafx.stage.Stage;
-import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.eugene.ui.Table;
 
