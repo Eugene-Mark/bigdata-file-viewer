@@ -8,6 +8,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.apache.avro.Schema;
+import org.eugene.controller.Renderer;
 import org.eugene.controller.TableRenderer;
 
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ import java.util.List;
 class SelectPropertyDialog {
     private Dialog<List<String>> dialog;
 
-    public void init(Stage stage, TableRenderer tableRenderer){
-        Schema schema = tableRenderer.getSchema();
+    public void init(Stage stage, Renderer renderer){
+        Schema schema = renderer.getSchema();
         List<String> properties = new ArrayList<>();
         for (Schema.Field field: schema.getFields()){
             properties.add(field.name());

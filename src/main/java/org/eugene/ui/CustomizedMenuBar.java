@@ -8,7 +8,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
-import org.eugene.controller.TableRenderer;
+import org.eugene.controller.Renderer;
 import org.eugene.util.CSVWriter;
 
 import java.io.File;
@@ -28,15 +28,15 @@ public class CustomizedMenuBar extends MenuBar {
         Menu file = new Menu();
         file.setText("File");
         MenuItem open = new MenuItem("Open");
-        TableRenderer tableRenderer = new TableRenderer(stage);
+        Renderer renderer = new Renderer(stage);
         open.setOnAction(event -> {
             if (firstTime){
-                tableRenderer.initUIOnce();
+                renderer.initUI();
                 firstTime = false;
             }
             ProgressWorker worker = new ProgressWorker();
             worker.start(stage);
-            boolean status = tableRenderer.loadAndShow();
+            boolean status = renderer.loadAndShow();
             if (status){
                 enableAll();
             }
@@ -49,7 +49,7 @@ public class CustomizedMenuBar extends MenuBar {
             FileChooser fileChooser = new FileChooser();
             File csvFile = fileChooser.showSaveDialog(stage);
             Path path = new Path(csvFile.getAbsolutePath());
-            ArrayList<GenericData.Record> list = (ArrayList<GenericData.Record>) tableRenderer.getData();
+            ArrayList<GenericData.Record> list = (ArrayList<GenericData.Record>) renderer.getData();
             CSVWriter.write(new Path(csvFile.getAbsolutePath()), list);
         });
         MenuItem close = new MenuItem("Close");
@@ -78,7 +78,7 @@ public class CustomizedMenuBar extends MenuBar {
                     return;
                 }
                 Constants.MAX_ROW_NUM = pageRowNum;
-                tableRenderer.refreshTable();
+                renderer.refreshTable();
             }catch(Exception e){
                 Notifier.error("Positive Integer required");
                 textField.clear();
@@ -94,9 +94,9 @@ public class CustomizedMenuBar extends MenuBar {
         selectPropertiesMenuItem.setText("Add/Remove Properties");
         SelectPropertyDialog selectPropertyDialog = new SelectPropertyDialog();
         selectPropertiesMenuItem.setOnAction(event -> {
-            selectPropertyDialog.init(stage, tableRenderer);
+            selectPropertyDialog.init(stage, renderer);
             Optional<List<String>> result = selectPropertyDialog.getDialog().showAndWait();
-            result.ifPresent(tableRenderer::refreshTable);
+            result.ifPresent(renderer::refreshTable);
         });
         view.getItems().add(selectPropertiesMenuItem);
 
