@@ -34,13 +34,10 @@ public class CustomizedMenuBar extends MenuBar {
                 renderer.initUI();
                 firstTime = false;
             }
-            ProgressWorker worker = new ProgressWorker();
-            worker.start(stage);
             boolean status = renderer.loadAndShow();
             if (status){
                 enableAll();
             }
-            worker.end();
         });
         Menu saveas= new Menu("Save as...");
         subCSV = new MenuItem("CSV");

@@ -8,10 +8,7 @@ import org.apache.hadoop.fs.Path;
 import org.eugene.core.parquet.ParquetReader;
 import org.eugene.model.Parquet;
 import org.eugene.model.TableMeta;
-import org.eugene.ui.Dashboard;
-import org.eugene.ui.Main;
-import org.eugene.ui.Notifier;
-import org.eugene.ui.Table;
+import org.eugene.ui.*;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -60,12 +57,14 @@ public class Renderer {
     }
 
     private boolean prepareData(){
+        ProgressWorker progressWorker = new ProgressWorker();
         FileChooser filechooser = new FileChooser();
         selectedFile = filechooser.showOpenDialog(stage);
+        progressWorker.start(stage);
         Path path = new Path(selectedFile.getAbsolutePath());
-
         ParquetReader reader = new ParquetReader();
         List<GenericData.Record> data = reader.read(path);
+        progressWorker.end();
         if(data == null)
         {
             return false;
