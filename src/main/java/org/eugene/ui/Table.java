@@ -54,6 +54,8 @@ public class Table {
             TableColumn<List<StringProperty>, String> tableColumn = new TableColumn<>(property);
             int finalIndex = index;
             tableColumn.setCellValueFactory(colData -> colData.getValue().get(finalIndex));
+            tableColumn.setSortable(false);
+            tableColumn.setEditable(false);
             tableView.getColumns().add(tableColumn);
             index++;
         }
@@ -75,15 +77,15 @@ public class Table {
         });
     }
 
-    private void generatePage(List<GenericData.Record> list, TableView tableView, int pageIndex, int pageRowNum, int colNumber, List<String> showingList, List<String> propertyList){
-        ObservableList<List<StringProperty>> data = FXCollections.observableArrayList();
+    private void generatePage(List<GenericData.Record> data, TableView tableView, int pageIndex, int pageRowNum, int colNumber, List<String> showingList, List<String> propertyList){
+        ObservableList<List<StringProperty>> content = FXCollections.observableArrayList();
         int start = pageIndex * pageRowNum;
         int end = start + pageRowNum;
-        if (end > list.size()){
-            end = list.size();
+        if (end > data.size()){
+            end = data.size();
         }
         for (int i = start; i < end; i++) {
-            GenericData.Record r = list.get(i);
+            GenericData.Record r = data.get(i);
             List<StringProperty> row = new ArrayList<StringProperty>();
             int index = 0;
             for (int j = 0; j < colNumber; j++){
@@ -97,8 +99,9 @@ public class Table {
                     index++;
                 }
             }
-            data.add(row);
+            content.add(row);
+
         }
-        tableView.setItems(data);
+        tableView.setItems(content);
     }
 }
