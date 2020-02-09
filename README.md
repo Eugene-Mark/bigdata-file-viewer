@@ -22,7 +22,7 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
  
  ## Screenshots
  
-
+ ![Demo GIF](demo.gif)
  
 
 
