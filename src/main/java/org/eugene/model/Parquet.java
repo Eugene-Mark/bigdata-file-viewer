@@ -6,6 +6,7 @@ import org.apache.avro.generic.GenericData;
 import java.util.List;
 
 public class Parquet {
+    /**
     private Schema schema;
     private List<GenericData.Record> data;
 
@@ -24,4 +25,5 @@ public class Parquet {
     public void setData(List<GenericData.Record> data){
         this.data = data;
     }
+     **/
 }

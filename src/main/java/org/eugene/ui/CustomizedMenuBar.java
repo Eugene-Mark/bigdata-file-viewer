@@ -47,7 +47,7 @@ public class CustomizedMenuBar extends MenuBar {
             FileChooser fileChooser = new FileChooser();
             File csvFile = fileChooser.showSaveDialog(stage);
             Path path = new Path(csvFile.getAbsolutePath());
-            ArrayList<GenericData.Record> list = (ArrayList<GenericData.Record>) renderer.getData();
+            ArrayList<List<String>> list = (ArrayList<List<String>>) renderer.getData();
             CSVWriter.write(new Path(csvFile.getAbsolutePath()), list);
         });
         MenuItem close = new MenuItem("Close");

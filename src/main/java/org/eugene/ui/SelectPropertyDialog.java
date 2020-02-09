@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import org.apache.avro.Schema;
 import org.eugene.controller.Renderer;
 import org.eugene.controller.TableRenderer;
+import org.eugene.persistent.VirtualDB;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,7 @@ class SelectPropertyDialog {
     private Dialog<List<String>> dialog;
 
     public void init(Stage stage, Renderer renderer){
-        Schema schema = renderer.getSchema();
-        List<String> properties = new ArrayList<>();
-        for (Schema.Field field: schema.getFields()){
-            properties.add(field.name());
-        }
+        List<String> properties = VirtualDB.getInstance().getCommonData().getPropertyList();
         dialog = new Dialog<>();
         VBox vBox = new VBox();
         VBox checkBoxGroup = new VBox(2);

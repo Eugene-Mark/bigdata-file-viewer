@@ -18,7 +18,7 @@ public class TableRenderer {
         this.table = table;
     }
 
-    public void refresh(List<String> showingList, List<String> propertyList, int rowNumber, int columnNumber, List<GenericData.Record> data){
+    public void refresh(List<String> showingList, List<String> propertyList, int rowNumber, int columnNumber, List<List<String>> data){
         table.refresh(showingList, propertyList, rowNumber, columnNumber, data);
     }
 

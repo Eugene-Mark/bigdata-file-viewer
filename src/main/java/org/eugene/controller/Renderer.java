@@ -6,8 +6,10 @@ import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
 import org.eugene.core.parquet.ParquetReader;
+import org.eugene.model.CommonData;
 import org.eugene.model.Parquet;
 import org.eugene.model.TableMeta;
+import org.eugene.persistent.VirtualDB;
 import org.eugene.ui.*;
 
 import java.io.File;
@@ -21,14 +23,8 @@ public class Renderer {
     private DashboardRenderer dashboardRenderer;
 
     private List<String> showingList;
-    private List<String> propertyList;
 
     private File selectedFile;
-
-    private Parquet parquet;
-    private TableMeta tableMeta;
-
-    private Schema schema;
 
     public Renderer(Stage stage){
         this.stage = stage;
@@ -46,53 +42,30 @@ public class Renderer {
     }
 
     public boolean loadAndShow(){
-        boolean status = prepareData();
+        FileChooser filechooser = new FileChooser();
+        selectedFile = filechooser.showOpenDialog(stage);
+        String absolutePath = selectedFile.getAbsolutePath();
+        Path path = new Path(absolutePath);
+        DataParser dataParser;
+        if (absolutePath.endsWith(".orc")){
+            dataParser = new ORCDataParser();
+        }else {
+            dataParser = new ParquetDataParser();
+        }
+        boolean status = dataParser.parseData(path);
         if (status) {
             tableRenderer.init();
-            showingList = propertyList;
-            dashboardRenderer.refreshMetaInfo(parquet.getSchema(), selectedFile, tableMeta.getRow(), tableMeta.getColumn());
-            tableRenderer.refresh(showingList, propertyList, tableMeta.getRow(), tableMeta.getColumn(), parquet.getData());
+            CommonData commonData = VirtualDB.getInstance().getCommonData();
+            TableMeta tableMeta = VirtualDB.getInstance().getTableMeta();
+            showingList = commonData.getPropertyList();
+            dashboardRenderer.refreshMetaInfo(commonData.getSchema(), selectedFile, tableMeta.getRow(), tableMeta.getColumn());
+            tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
         }
         return status;
     }
 
-    private boolean prepareData(){
-        FileChooser filechooser = new FileChooser();
-        selectedFile = filechooser.showOpenDialog(stage);
-        Path path = new Path(selectedFile.getAbsolutePath());
-        ParquetReader reader = new ParquetReader();
-        List<GenericData.Record> data = reader.read(path);
-        if(data == null)
-        {
-            return false;
-        }
-        if (data.isEmpty()) {
-            Notifier.info("The file is empty");
-        }
-        parquet = new Parquet();
-        parquet.setData(data);
-        GenericData.Record record = data.get(0);
-        schema = record.getSchema();
-        parquet.setSchema(schema);
-        int rowNumber = data.size();
-        showingList = new ArrayList<>();
-        propertyList = new ArrayList<>();
-        for (Schema.Field field: schema.getFields())
-        {
-            String property = field.name();
-            showingList.add(property);
-            propertyList.add(property);
-        }
-        int columnNumber = propertyList.size();
-        tableMeta = new TableMeta();
-        tableMeta.setRow(rowNumber);
-        tableMeta.setColumn(columnNumber);
-
-        return true;
-    }
-
-    public List<GenericData.Record> getData(){
-        return parquet.getData();
+    public List<List<String>> getData(){
+        return VirtualDB.getInstance().getCommonData().getData();
     }
 
     public void refreshTable(){
@@ -100,10 +73,9 @@ public class Renderer {
     }
 
     public void refreshTable(List<String> showingList){
-        tableRenderer.refresh(showingList, propertyList, tableMeta.getRow(), tableMeta.getColumn(), parquet.getData());
+        CommonData commonData = VirtualDB.getInstance().getCommonData();
+        TableMeta tableMeta = VirtualDB.getInstance().getTableMeta();
+        tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
     }
 
-    public Schema getSchema() {
-        return schema;
-    }
 }

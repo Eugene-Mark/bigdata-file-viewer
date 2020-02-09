@@ -33,7 +33,7 @@ public class Dashboard {
         this.vBox = vBox;
     }
 
-    public void refresh(Schema schema, File selectedFile, int rowNumber, int columnNumber){
+    public void refresh(String schema, File selectedFile, int rowNumber, int columnNumber){
         vBox.getChildren().clear();
         Accordion accordion = new Accordion();
         refreshSummaryPane(selectedFile, rowNumber, columnNumber, accordion);
@@ -72,26 +72,16 @@ public class Dashboard {
         accordion.getPanes().add(summaryPane);
     }
 
-    private void refreshMetaPane(Schema schema, Accordion accordion){
-        String schemaJson = schema.toString();
+    private void refreshMetaPane(String schema, Accordion accordion){
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         JsonParser jp = new JsonParser();
-        JsonElement je = jp.parse(schemaJson);
+        JsonElement je = jp.parse(schema);
         String prettySchemaJson = gson.toJson(je);
         Map<String, String> schemaMap = new HashMap<>();
-        for (Schema.Field field: schema.getFields())
-        {
-            String name = field.name();
-            String type = TypeFetcher.getType(field.schema().toString());
-            schemaMap.put(name,type);
-        }
-
         TitledPane metaPane = new TitledPane();
         metaPane.setText("Schema Information");
         VBox metaBox = new VBox();
-        schemaMap.forEach((k,v) -> {
-            //metaBox.getChildren().add(new Label(k + " : " + v));
-        });
+
         TextArea textArea = new TextArea();
         textArea.setWrapText(true);
         textArea.setEditable(false);

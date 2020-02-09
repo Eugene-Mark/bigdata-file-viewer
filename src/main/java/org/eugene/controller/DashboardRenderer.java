@@ -12,7 +12,7 @@ public class DashboardRenderer {
         this.dashboard = dashboard;
     }
 
-    public void refreshMetaInfo(Schema schema, File selectedFile, int rowNumber, int columnNumber){
+    public void refreshMetaInfo(String schema, File selectedFile, int rowNumber, int columnNumber){
         dashboard.refresh(schema, selectedFile, rowNumber, columnNumber);
     }
 }

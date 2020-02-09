@@ -43,7 +43,7 @@ public class Table {
 
 
 
-    public void refresh(List<String> showingList, List<String> propertyList, int rowNumber, int columnNumber, List<GenericData.Record> data){
+    public void refresh(List<String> showingList, List<String> propertyList, int rowNumber, int columnNumber, List<List<String>> data){
         initTable();
 
         int index = 0;
@@ -77,7 +77,7 @@ public class Table {
         });
     }
 
-    private void generatePage(List<GenericData.Record> data, TableView tableView, int pageIndex, int pageRowNum, int colNumber, List<String> showingList, List<String> propertyList){
+    private void generatePage(List<List<String>> data, TableView tableView, int pageIndex, int pageRowNum, int colNumber, List<String> showingList, List<String> propertyList){
         ObservableList<List<StringProperty>> content = FXCollections.observableArrayList();
         int start = pageIndex * pageRowNum;
         int end = start + pageRowNum;
@@ -85,7 +85,7 @@ public class Table {
             end = data.size();
         }
         for (int i = start; i < end; i++) {
-            GenericData.Record r = data.get(i);
+            List<String> r = data.get(i);
             List<StringProperty> row = new ArrayList<StringProperty>();
             int index = 0;
             for (int j = 0; j < colNumber; j++){

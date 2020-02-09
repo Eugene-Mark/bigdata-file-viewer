@@ -3,31 +3,31 @@ package org.eugene.util;
 import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
+import org.eugene.persistent.VirtualDB;
 
 import java.io.PrintWriter;
 import java.util.List;
 
 public class CSVWriter {
-    public static boolean write(Path path, List<GenericData.Record> list){
+    public static boolean write(Path path, List<List<String>> data){
         try{
             PrintWriter out = new PrintWriter(path.toString());
-            if (list.size() == 0) {
+            if (data.size() == 0) {
                 out.write("");
                 return true;
             }
-            GenericData.Record firstRow = list.get(0);
-            List<Schema.Field> fields = firstRow.getSchema().getFields();
-            int colNumber = fields.size();
+            List<String> propertyList = VirtualDB.getInstance().getCommonData().getPropertyList();
+            int colNumber = propertyList.size();
             for (int i = 0; i < colNumber; i++) {
                 if (i == (colNumber - 1)){
-                    out.println(fields.get(i).name());
+                    out.println(propertyList.get(i));
                 }else{
-                    out.print(fields.get(i).name());
+                    out.print(propertyList.get(i));
                     out.print(",");
                 }
             }
 
-            for (GenericData.Record record: list) {
+            for (List<String> record: data) {
                 for (int i = 0; i < colNumber; i++) {
                     if (i == (colNumber - 1)) {
                         if (record.get(i) == null)
