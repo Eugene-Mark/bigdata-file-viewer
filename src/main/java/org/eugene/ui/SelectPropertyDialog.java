@@ -7,9 +7,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.apache.avro.Schema;
 import org.eugene.controller.Renderer;
-import org.eugene.controller.TableRenderer;
 import org.eugene.persistent.VirtualDB;
 
 import java.util.ArrayList;

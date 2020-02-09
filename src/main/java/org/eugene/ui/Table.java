@@ -9,7 +9,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import org.apache.avro.generic.GenericData;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -91,7 +90,7 @@ public class Table {
             for (int j = 0; j < colNumber; j++){
                 if(showingList.contains(propertyList.get(j))){
                     if (r.get(j) == null){
-                        row.add(index, new SimpleStringProperty("NULL"));
+                        row.add(index, new SimpleStringProperty(Constants.NULL));
                     }
                     else{
                         row.add(index, new SimpleStringProperty(r.get(j).toString()));

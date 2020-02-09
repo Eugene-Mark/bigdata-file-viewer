@@ -11,6 +11,7 @@ import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.VirtualDB;
+import org.eugene.ui.Constants;
 import org.eugene.ui.Notifier;
 
 import java.util.ArrayList;
@@ -25,8 +26,6 @@ public class ORCReader {
             //The JSON schema provided is illegal, so need to make it valid firstly
             schema = schema.replaceAll("(\"[\\w]+\"):([\\s]+[{]+)", "$1,$2");
             RecordReader records = reader.rows();
-            //These objects are the metadata for each column.  They give you the type of each column and can parse it unless you
-            //want to parse each column yourself
             List fields = inspector.getAllStructFieldRefs();
             List<String> propertyList = new ArrayList<>();
             int columnNumber = fields.size();
@@ -47,7 +46,7 @@ public class ORCReader {
                         record.add(field.toString());
                     }
                     else{
-                        record.add("NULL");
+                        record.add(Constants.NULL);
                     }
                 }
                 data.add(record);

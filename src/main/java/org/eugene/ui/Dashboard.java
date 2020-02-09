@@ -14,8 +14,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import org.apache.avro.Schema;
-import org.eugene.util.TypeFetcher;
 
 import java.io.File;
 import java.util.HashMap;

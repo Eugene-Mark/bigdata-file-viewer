@@ -7,7 +7,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
 import org.eugene.controller.Renderer;
 import org.eugene.util.CSVWriter;
@@ -102,6 +101,20 @@ public class CustomizedMenuBar extends MenuBar {
         this.getMenus().add(file);
         this.getMenus().add(view);
         disableAll();
+
+        //About menu
+        Menu about = new Menu();
+        about.setText("About");
+        MenuItem aboutItem = new MenuItem();
+        aboutItem.setText("About");
+        aboutItem.setOnAction(event -> {
+            AboutDialog aboutDialog = new AboutDialog();
+            aboutDialog.init();
+            aboutDialog.getDialog().show();
+        });
+        about.getItems().add(aboutItem);
+        this.getMenus().add(about);
+
     }
 
     private void disableAll(){

@@ -2,18 +2,15 @@ package org.eugene.controller;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericData;
 import org.apache.hadoop.fs.Path;
-import org.eugene.core.parquet.ParquetReader;
 import org.eugene.model.CommonData;
-import org.eugene.model.Parquet;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.VirtualDB;
-import org.eugene.ui.*;
+import org.eugene.ui.Dashboard;
+import org.eugene.ui.Main;
+import org.eugene.ui.Table;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 public class Renderer {
