@@ -2,7 +2,7 @@
 A cross-platform (Windows, MAC, Linux) desktop application to view common bigata binary format like Parquet, ORC, etc. 
 
 ## Feature List
- - Open and view Parquet and ORC
+ - Open and view Parquet and ORC at local directory
  - Convert binary format data to text format data like CSV
  - Support complex data type like array, map, struct, etc
  - Suport multiple platforms like Windows, MAC and Linux
