@@ -9,7 +9,7 @@ import org.eugene.ui.CustomizedMenuBar;
 
 
 /**
- * Hello world!
+ * Hello big data!
  *
  */
 public class App extends Application

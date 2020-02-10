@@ -96,6 +96,14 @@
             </archive>
           </configuration>
         </plugin>
+        <plugin>
+          <groupId>com.zenjava</groupId>
+          <artifactId>javafx-maven-plugin</artifactId>
+          <version>8.7.0</version>
+          <configuration>
+            <mainClass>org.eugene.App</mainClass>
+          </configuration>
+        </plugin>
 	    <plugin>
 	      <artifactId>maven-assembly-plugin</artifactId>
 	      <configuration>
