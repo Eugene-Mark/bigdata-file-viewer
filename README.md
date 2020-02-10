@@ -19,6 +19,7 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
  
  ## Build 
  - To build an all-in-one runnable jar, use `mvn clean compile assembly:single`
+ - Java 1.8 or higher is required
  
  ## Screenshots
  
