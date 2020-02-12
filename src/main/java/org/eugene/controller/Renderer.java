@@ -44,9 +44,9 @@ public class Renderer {
         String absolutePath = selectedFile.getAbsolutePath();
         Path path = new Path(absolutePath);
         DataParser dataParser;
-        if (absolutePath.endsWith("orc")){
+        if (absolutePath.toLowerCase().endsWith("orc")){
             dataParser = new ORCDataParser();
-        }else if(absolutePath.endsWith("avro")){
+        }else if(absolutePath.toLowerCase().endsWith("avro")){
             dataParser = new AVRODataParser();
         }else{
             dataParser = new ParquetDataParser();
