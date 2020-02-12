@@ -1,17 +1,17 @@
 # bigdata-file-viewer
-A cross-platform (Windows, MAC, Linux) desktop application to view common bigata binary format like Parquet, ORC, etc. 
+A cross-platform (Windows, MAC, Linux) desktop application to view common bigata binary format like Parquet, ORC, AVRO, etc. 
 
 ## Feature List
- - Open and view Parquet and ORC at local directory
+ - Open and view Parquet, ORC and AVRO at local directory
  - Convert binary format data to text format data like CSV
  - Support complex data type like array, map, struct, etc
  - Suport multiple platforms like Windows, MAC and Linux
- - Code is extensible to involve more binary format like AVRO
+ - Code is extensible to involve other data format
  
 ## Usage
  - Download runnable jar from [release page][1] or run from directory by `mvn exec:java -Dexec.mainClass=org.eugene.App`
- - Invoke it by `java -jar BigdataFileViewer-1.0-SNAPSHOT-jar-with-dependencies.jar`
- - Open binary format file by "File" -> "Open". Currently, it can open file with .parquet suffix and .orc suffix. If no suffix specified, the tool will try to extract the it as Parquet file
+ - Invoke it by `java -jar BigdataFileViewer-1.1-SNAPSHOT-jar-with-dependencies.jar`
+ - Open binary format file by "File" -> "Open". Currently, it can open file with parquet suffix, orc suffix and avro suffix. If no suffix specified, the tool will try to extract the it as Parquet file
  - Set the maximum rows of each page by "View" -> `Input maximum row number` -> "Go"
  - Set visible properties by "View" -> "Add/Remove Properties"
  - Convert to CSV file by "File" -> "Save as" -> "CSV"
