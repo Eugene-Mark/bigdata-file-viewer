@@ -45,9 +45,13 @@ public class CustomizedMenuBar extends MenuBar {
         saveas.setOnAction( event -> {
             FileChooser fileChooser = new FileChooser();
             File csvFile = fileChooser.showSaveDialog(stage);
-            Path path = new Path(csvFile.getAbsolutePath());
+            String absolutePath = csvFile.getAbsolutePath();
+            if (!absolutePath.endsWith(".csv"))
+            {
+                absolutePath = absolutePath.concat(".csv");
+            }
             ArrayList<List<String>> list = (ArrayList<List<String>>) renderer.getData();
-            CSVWriter.write(new Path(csvFile.getAbsolutePath()), list);
+            CSVWriter.write(new Path(absolutePath), list);
         });
         MenuItem close = new MenuItem("Close");
         close.setOnAction(event -> {
