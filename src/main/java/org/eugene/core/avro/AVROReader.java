@@ -1,8 +1,6 @@
 package org.eugene.core.avro;
 
-import org.apache.avro.Schema;
 import org.apache.avro.file.DataFileReader;
-import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumReader;
@@ -30,10 +28,5 @@ public class AVROReader {
             Notifier.error("Failed to load the file! The exception throws is:  " + e.getMessage());
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        AVROReader reader = new AVROReader();
-        reader.read(new Path("/Users/upma/gene/kylo/samples/sample-data/avro/userdata1.avro"));
     }
 }
