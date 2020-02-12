@@ -46,7 +46,9 @@ public class Renderer {
         DataParser dataParser;
         if (absolutePath.endsWith(".orc")){
             dataParser = new ORCDataParser();
-        }else {
+        }else if(absolutePath.endsWith(".avro")){
+            dataParser = new AVRODataParser();
+        }else{
             dataParser = new ParquetDataParser();
         }
         boolean status = dataParser.parseData(path);

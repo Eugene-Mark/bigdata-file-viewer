@@ -24,10 +24,8 @@ public class ParquetReader {
                             .withConf(conf)
                             .build();
             GenericData.Record record;
-            int row = 0;
             while((record = reader.read()) != null){
                 list.add(record);
-                row++;
             }
             return list;
         }catch(Exception e){
