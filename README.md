@@ -9,7 +9,7 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
  - Code is extensible to involve more binary format like AVRO
  
 ## Usage
- - Download runnable jar from [release page][1]
+ - Download runnable jar from [release page][1] or run from directory by `mvn exec:java -Dexec.mainClass=org.eugene.App`
  - Invoke it by `java -jar BigdataFileViewer-1.0-SNAPSHOT-jar-with-dependencies.jar`
  - Open binary format file by "File" -> "Open". Currently, it can open file with .parquet suffix and .orc suffix. If no suffix specified, the tool will try to extract the it as Parquet file
  - Set the maximum rows of each page by "View" -> `Input maximum row number` -> "Go"
@@ -17,17 +17,20 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
  - Convert to CSV file by "File" -> "Save as" -> "CSV"
  - Check schema information by unfolding "Schema Information" panel
  
+ [Click here for live demo][2]
+ 
  ## Build 
  - To build an all-in-one runnable jar, use `mvn clean compile assembly:single`
  - Java 1.8 or higher is required
  
  ## Screenshots
  
- ![Demo GIF](resources/demo.gif)
+ ![Main page](resources/main-page.png)
  
 
 
 
 
 [1]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases
+[2]: https://github.com/Eugene-Mark/bigdata-file-viewer/tree/master/resources/demo.gif
 
