@@ -18,7 +18,8 @@ public class AboutDialog {
         intro.setText("   Currently supported format: ");
         Label parquet = new Label("      - Parquet");
         Label orc = new Label("      - ORC");
-        orc.setPadding(new Insets(0,0,5, 0));
+        Label avro = new Label("      - AVRO");
+        avro.setPadding(new Insets(0,0,5, 0));
         Label author = new Label();
         author.setText("   Author: " );
         Hyperlink github = new Hyperlink();
@@ -39,7 +40,7 @@ public class AboutDialog {
                 e.printStackTrace();
             }
         });
-        dialog.getDialogPane().setContent(new VBox(intro, parquet, orc, author, github, so));
+        dialog.getDialogPane().setContent(new VBox(intro, parquet, orc, avro, author, github, so));
         dialog.getDialogPane().getButtonTypes().addAll(ButtonType.CLOSE);
     }
 

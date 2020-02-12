@@ -2,11 +2,9 @@ package org.eugene.controller;
 
 
 import org.apache.avro.Schema;
-import org.apache.avro.generic.GenericData;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.hadoop.fs.Path;
 import org.eugene.core.avro.AVROReader;
-import org.eugene.core.parquet.ParquetReader;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.VirtualDB;
