@@ -22,6 +22,7 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
  ## Build 
  - To build an all-in-one runnable jar, use `mvn clean compile assembly:single`
  - Java 1.8 or higher is required
+ - Make sure the Java has javafx bound. For example, I installed openjdk 1.8 on Ubuntu 18.04 and it has no javafx bound, I installed it following guide [here][3]. 
  
  ## Screenshots
  
@@ -33,4 +34,5 @@ A cross-platform (Windows, MAC, Linux) desktop application to view common bigata
 
 [1]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases
 [2]: https://github.com/Eugene-Mark/bigdata-file-viewer/tree/master/resources/demo.gif
+[3]: https://stackoverflow.com/a/56166582/3378204
 
