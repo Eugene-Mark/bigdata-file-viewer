@@ -58,13 +58,7 @@ public class AVRODataParser extends DataParser {
             data.add(commonRecord);
         }
 
-        CommonData commonData = new CommonData();
-        commonData.setSchema(schema.toString());
-        commonData.setData(data);
-        commonData.setPropertyList(propertyList);
-
-        VirtualDB.getInstance().setCommonData(commonData);
-        VirtualDB.getInstance().setTableMeta(tableMeta);
+        super.persistData(schema, propertyList, data, tableMeta);
 
         return true;
     }
