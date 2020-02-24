@@ -1,9 +1,6 @@
 package org.eugene.controller;
 
-import org.apache.avro.Schema;
 import org.eugene.ui.Dashboard;
-
-import java.io.File;
 
 public class DashboardRenderer {
     private Dashboard dashboard;
@@ -12,7 +9,7 @@ public class DashboardRenderer {
         this.dashboard = dashboard;
     }
 
-    public void refreshMetaInfo(String schema, File selectedFile, int rowNumber, int columnNumber){
-        dashboard.refresh(schema, selectedFile, rowNumber, columnNumber);
+    public void refreshMetaInfo(String schema, String path, int rowNumber, int columnNumber){
+        dashboard.refresh(schema, path, rowNumber, columnNumber);
     }
 }

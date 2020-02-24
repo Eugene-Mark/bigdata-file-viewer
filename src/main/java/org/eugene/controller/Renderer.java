@@ -21,8 +21,6 @@ public class Renderer {
 
     private List<String> showingList;
 
-    private File selectedFile;
-
     public Renderer(Stage stage){
         this.stage = stage;
         tableRenderer = new TableRenderer();
@@ -38,15 +36,11 @@ public class Renderer {
         main.initUI();
     }
 
-    public boolean loadAndShow(){
-        FileChooser filechooser = new FileChooser();
-        selectedFile = filechooser.showOpenDialog(stage);
-        String absolutePath = selectedFile.getAbsolutePath();
-        Path path = new Path(absolutePath);
+    private boolean load(Path path){
         DataParser dataParser;
-        if (absolutePath.toLowerCase().endsWith("orc")){
+        if (path.toString().toLowerCase().endsWith("orc")){
             dataParser = new ORCDataParser();
-        }else if(absolutePath.toLowerCase().endsWith("avro")){
+        }else if(path.toString().toLowerCase().endsWith("avro")){
             dataParser = new AVRODataParser();
         }else{
             dataParser = new ParquetDataParser();
@@ -57,10 +51,22 @@ public class Renderer {
             CommonData commonData = VirtualDB.getInstance().getCommonData();
             TableMeta tableMeta = VirtualDB.getInstance().getTableMeta();
             showingList = commonData.getPropertyList();
-            dashboardRenderer.refreshMetaInfo(commonData.getSchema(), selectedFile, tableMeta.getRow(), tableMeta.getColumn());
+            dashboardRenderer.refreshMetaInfo(commonData.getSchema(), path.toString(), tableMeta.getRow(), tableMeta.getColumn());
             tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
         }
         return status;
+    }
+
+    public boolean loadAndShow(Path path){
+        return load(path);
+    }
+
+    public boolean loadAndShow(){
+        FileChooser filechooser = new FileChooser();
+        File selectedFile = filechooser.showOpenDialog(stage);
+        String absolutePath = selectedFile.getAbsolutePath();
+        Path path = new Path(absolutePath);
+        return load(path);
     }
 
     public List<List<String>> getData(){

@@ -15,7 +15,6 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -31,15 +30,15 @@ public class Dashboard {
         this.vBox = vBox;
     }
 
-    public void refresh(String schema, File selectedFile, int rowNumber, int columnNumber){
+    public void refresh(String schema, String path, int rowNumber, int columnNumber){
         vBox.getChildren().clear();
         Accordion accordion = new Accordion();
-        refreshSummaryPane(selectedFile, rowNumber, columnNumber, accordion);
+        refreshSummaryPane(path, rowNumber, columnNumber, accordion);
         refreshMetaPane(schema, accordion);
         vBox.getChildren().add(accordion);
     }
 
-    private void refreshSummaryPane(File selectedFile, int rowNumber, int columnNumber, Accordion accordion){
+    private void refreshSummaryPane(String path, int rowNumber, int columnNumber, Accordion accordion){
         final int fontSize = 15;
         final int padding = 10;
         TitledPane summaryPane = new TitledPane();
@@ -47,7 +46,7 @@ public class Dashboard {
 
         Label nameKey = new Label("File name:   ");
         nameKey.setFont(Font.font("Arial", FontWeight.BLACK, fontSize));
-        Label name = new Label(selectedFile.getName());
+        Label name = new Label(path);
         name.setFont(Font.font(fontSize));
         HBox nameHBox = new HBox(nameKey, name);
         nameHBox.setPadding(new Insets(padding,padding,0,padding));

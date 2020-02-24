@@ -27,9 +27,10 @@ public class CustomizedMenuBar extends MenuBar {
         //File menu
         Menu file = new Menu();
         file.setText("File");
-        MenuItem open = new MenuItem("Open");
+        Menu open = new Menu("Open");
+        MenuItem localFileSystemItem = new MenuItem("Local File System");
         Renderer renderer = new Renderer(stage);
-        open.setOnAction(event -> {
+        localFileSystemItem.setOnAction(event -> {
             if (firstTime){
                 renderer.initUI();
                 firstTime = false;
@@ -39,6 +40,28 @@ public class CustomizedMenuBar extends MenuBar {
                 enableAll();
             }
         });
+
+        MenuItem HDFSItem = new MenuItem("HDFS");
+        SetHDFSDialog setHDFSDialog = new SetHDFSDialog();
+        HDFSItem.setOnAction(event -> {
+            boolean status = false;
+            if (firstTime){
+                renderer.initUI();
+                firstTime = false;
+            }
+            setHDFSDialog.init(stage, renderer);
+            Optional<String> result = setHDFSDialog.getDialog().showAndWait();
+            if(result.isPresent()){
+                Path path = new Path(result.get());
+                status = renderer.loadAndShow(path);
+            }
+            if (status){
+                enableAll();
+            }
+        });
+        open.getItems().add(localFileSystemItem);
+        open.getItems().add(HDFSItem);
+
         Menu saveas= new Menu("Save as...");
         subCSV = new MenuItem("CSV");
         saveas.getItems().add(subCSV);

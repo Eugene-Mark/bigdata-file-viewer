@@ -58,7 +58,6 @@ class SelectPropertyDialog {
 
         ButtonType okButtonType = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
         dialog.getDialogPane().getButtonTypes().add(okButtonType);
-        Node okButton = dialog.getDialogPane().lookupButton(okButtonType);
         List<String> result = new ArrayList<>();
         dialog.setResultConverter(dialogButton -> {
             if (dialogButton == okButtonType){
