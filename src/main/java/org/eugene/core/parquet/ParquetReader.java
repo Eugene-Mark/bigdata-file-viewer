@@ -16,6 +16,12 @@ public class ParquetReader {
         List<GenericData.Record> list = new ArrayList<>();
         try{
             Configuration conf = new Configuration();
+            conf.set("fs.hdfs.impl",
+                    org.apache.hadoop.hdfs.DistributedFileSystem.class.getName()
+            );
+            conf.set("fs.file.impl",
+                    org.apache.hadoop.fs.LocalFileSystem.class.getName()
+            );
             InputFile inputFile = HadoopInputFile.fromPath(path, conf);
             org.apache.parquet.hadoop.ParquetReader<GenericData.Record> reader =
                     AvroParquetReader.<GenericData.Record>builder(inputFile)
