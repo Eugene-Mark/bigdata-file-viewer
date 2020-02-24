@@ -1,6 +1,5 @@
 package org.eugene.core.orc;
 
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.hive.ql.io.orc.OrcFile;
 import org.apache.hadoop.hive.ql.io.orc.Reader;
@@ -17,10 +16,10 @@ import org.eugene.ui.Notifier;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ORCReader {
+public class ORCReader extends org.eugene.core.common.Reader {
     public boolean read(Path path){
         try{
-            Reader reader = OrcFile.createReader(path, OrcFile.readerOptions(new Configuration()));
+            Reader reader = OrcFile.createReader(path, OrcFile.readerOptions(super.getConfiguration()));
             StructObjectInspector inspector = (StructObjectInspector)reader.getObjectInspector();
             String schema = reader.getSchema().toJson();
             //The JSON schema provided is illegal, so need to make it valid firstly

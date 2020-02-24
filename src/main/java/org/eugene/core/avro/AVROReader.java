@@ -7,21 +7,17 @@ import org.apache.avro.generic.GenericDatumReader;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.avro.io.DatumReader;
 import org.apache.avro.mapred.FsInput;
-import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
-import org.apache.parquet.hadoop.util.HadoopInputFile;
-import org.apache.parquet.io.InputFile;
+import org.eugene.core.common.Reader;
 import org.eugene.ui.Notifier;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AVROReader {
+public class AVROReader extends Reader {
     public List<GenericRecord> read(Path path){
         try{
-            Configuration configuration = new Configuration();
-            SeekableInput inputFile = new FsInput(path, configuration);
+            SeekableInput inputFile = new FsInput(path, super.getConfiguration());
 
             DatumReader<GenericRecord> datumReader = new GenericDatumReader<>();
             //DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(new File(path.toString()), datumReader);
