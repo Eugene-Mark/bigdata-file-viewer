@@ -1,5 +1,5 @@
 # bigdata-file-viewer
-A cross-platform (Windows, MAC, Linux) desktop application to view common bigata binary format like Parquet, ORC, AVRO, etc.
+A cross-platform (Windows, MAC, Linux) desktop application to view common bigdata binary format like Parquet, ORC, AVRO, etc.
 Support local file system, HDFS, etc. 
 
 
