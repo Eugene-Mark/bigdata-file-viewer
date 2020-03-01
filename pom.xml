@@ -60,6 +60,11 @@
       <artifactId>hadoop-hdfs</artifactId>
       <version>3.2.1</version>
     </dependency>
+    <dependency>
+      <groupId>com.amazonaws</groupId>
+      <artifactId>aws-java-sdk</artifactId>
+      <version>1.11.327</version>
+    </dependency>
   </dependencies>
 
   <build>

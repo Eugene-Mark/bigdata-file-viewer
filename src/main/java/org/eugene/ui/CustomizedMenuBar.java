@@ -14,6 +14,7 @@ import org.eugene.util.CSVWriter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 public class CustomizedMenuBar extends MenuBar {
@@ -59,8 +60,28 @@ public class CustomizedMenuBar extends MenuBar {
                 enableAll();
             }
         });
+
+        MenuItem AWSItem = new MenuItem("AWS");
+        SetAWSDialog setAWSDialog = new SetAWSDialog();
+        AWSItem.setOnAction(event -> {
+            boolean status = false;
+            if (firstTime){
+                renderer.initUI();
+                firstTime = false;
+            }
+            setAWSDialog.init(stage, renderer);
+            Optional<Map<String, String>> result = setAWSDialog.getDialog().showAndWait();
+            if(result.isPresent()){
+                status = renderer.loadAndShow(result.get());
+            }
+            if (status){
+                enableAll();
+            }
+        });
+
         open.getItems().add(localFileSystemItem);
         open.getItems().add(HDFSItem);
+        open.getItems().add(AWSItem);
 
         Menu saveas= new Menu("Save as...");
         subCSV = new MenuItem("CSV");

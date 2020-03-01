@@ -3,15 +3,18 @@ package org.eugene.controller;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.hadoop.fs.Path;
+import org.eugene.core.common.AWSS3Reader;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.VirtualDB;
+import org.eugene.ui.Constants;
 import org.eugene.ui.Dashboard;
 import org.eugene.ui.Main;
 import org.eugene.ui.Table;
 
 import java.io.File;
 import java.util.List;
+import java.util.Map;
 
 public class Renderer {
 
@@ -55,6 +58,13 @@ public class Renderer {
             tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
         }
         return status;
+    }
+
+    public boolean loadAndShow(Map<String, String> map){
+        AWSS3Reader awss3Reader = new AWSS3Reader();
+        Path path = awss3Reader.read(map.get(Constants.BUCKET), map.get(Constants.FILE), map.get(Constants.REGION), map.get(Constants.ACCESSKEY), map.get(Constants.SECRETKEY));
+        load(path);
+        return false;
     }
 
     public boolean loadAndShow(Path path){
