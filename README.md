@@ -7,7 +7,7 @@ Support local file system, HDFS, etc.
 [![GitHub license](https://img.shields.io/github/license/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer/blob/master/LICENSE)
 
 ## Feature List
- - Open and view Parquet, ORC and AVRO at local directory, HDFS, etc.
+ - Open and view Parquet, ORC and AVRO at local directory, HDFS, AWS S3, etc.
  - Convert binary format data to text format data like CSV
  - Support complex data type like array, map, struct, etc
  - Suport multiple platforms like Windows, MAC and Linux
