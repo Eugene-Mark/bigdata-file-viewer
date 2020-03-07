@@ -2,6 +2,8 @@
 A cross-platform (Windows, MAC, Linux) desktop application to view common bigdata binary format like Parquet, ORC, AVRO, etc.
 Support local file system, HDFS, AWS S3, etc. 
 
+Note, you're recommended to download release [v1.1.1][4] to if you just want to view **local** bigdata binary files, it's lightweight without dependency to AWS SDK, Azure SDK, etc. Quite honestly, you can download data files from web portal of AWS, Azure ,etc. before viewing it with this tool. The reason why I integrted the cloud storage system's SDK into this tool is more like a demo of **how to use Java to read files from specific storage system**.
+
 [![GitHub stars](https://img.shields.io/github/stars/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer)
 [![GitHub release](https://img.shields.io/github/v/release/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer/releases)
 [![GitHub license](https://img.shields.io/github/license/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer/blob/master/LICENSE)
@@ -40,4 +42,5 @@ Support local file system, HDFS, AWS S3, etc.
 [1]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases
 [2]: https://github.com/Eugene-Mark/bigdata-file-viewer/tree/master/resources/demo.gif
 [3]: https://stackoverflow.com/a/56166582/3378204
+[4]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases/tag/v1.1.1
 
