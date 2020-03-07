@@ -1,6 +1,6 @@
 # bigdata-file-viewer
 A cross-platform (Windows, MAC, Linux) desktop application to view common bigdata binary format like Parquet, ORC, AVRO, etc.
-Support local file system, HDFS, etc. 
+Support local file system, HDFS, AWS S3, etc. 
 
 [![GitHub stars](https://img.shields.io/github/stars/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer)
 [![GitHub release](https://img.shields.io/github/v/release/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer/releases)
