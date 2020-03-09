@@ -9,7 +9,7 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
 [![GitHub license](https://img.shields.io/github/license/Eugene-Mark/bigdata-file-viewer.svg)](https://github.com/Eugene-Mark/bigdata-file-viewer/blob/master/LICENSE)
 
 ## Feature List
- - Open and view Parquet, ORC and AVRO at local directory, HDFS, AWS S3, etc.
+ - Open and view Parquet, ORC and AVRO at local directory, HDFS, AWS S3, Azure Blob Storage, etc.
  - Convert binary format data to text format data like CSV
  - Support complex data type like array, map, struct, etc
  - Suport multiple platforms like Windows, MAC and Linux
