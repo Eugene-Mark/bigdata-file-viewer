@@ -18,7 +18,6 @@ public class AzureStorageReader {
         BlobContainerClient blobContainerClient = blobServiceClient.getBlobContainerClient(containerName);
         List<String> names = new ArrayList<>();
         for (BlobItem blobItem: blobContainerClient.listBlobs()){
-            System.out.println(blobItem.getName());
             names.add(blobItem.getName());
         }
         if (!names.contains(blobName))
