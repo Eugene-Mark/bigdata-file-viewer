@@ -28,7 +28,7 @@ public class AWSS3Reader {
             }else if (keyName.toLowerCase().endsWith(".avro")){
                 suffix = ".avro";
             }
-            File tmp = File.createTempFile("viewer-temp-", suffix);
+            File tmp = File.createTempFile("v-tmp-", suffix);
             Files.copy(inputStream, tmp.toPath(), StandardCopyOption.REPLACE_EXISTING);
             inputStream.close();
             return new Path(tmp.toPath().toString());

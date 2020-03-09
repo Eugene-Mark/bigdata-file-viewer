@@ -4,6 +4,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import org.apache.hadoop.fs.Path;
 import org.eugene.core.common.AWSS3Reader;
+import org.eugene.core.common.AzureStorageReader;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.VirtualDB;
@@ -64,7 +65,16 @@ public class Renderer {
         AWSS3Reader awss3Reader = new AWSS3Reader();
         Path path = awss3Reader.read(map.get(Constants.BUCKET), map.get(Constants.FILE), map.get(Constants.REGION), map.get(Constants.ACCESSKEY), map.get(Constants.SECRETKEY));
         load(path);
-        return false;
+        return true;
+    }
+
+    public boolean loadAndShow(Map<String, String> map, boolean azure){
+        if (!azure)
+            return false;
+        AzureStorageReader azureStorageReader = new AzureStorageReader();
+        Path path = azureStorageReader.read(map.get(Constants.CONNECTION_STRING), map.get(Constants.CONTAINER), map.get(Constants.BLOB));
+        load(path);
+        return true;
     }
 
     public boolean loadAndShow(Path path){

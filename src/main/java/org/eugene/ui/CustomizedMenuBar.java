@@ -79,9 +79,28 @@ public class CustomizedMenuBar extends MenuBar {
             }
         });
 
+        MenuItem azureItem = new MenuItem("Azure");
+        SetAzureDialog setAzureDialog = new SetAzureDialog();
+        azureItem.setOnAction(event -> {
+            boolean status = false;
+            if (firstTime){
+                renderer.initUI();
+                firstTime = false;
+            }
+            setAzureDialog.init(stage, renderer);
+            Optional<Map<String, String>> result = setAzureDialog.getDialog().showAndWait();
+            if(result.isPresent()){
+                status = renderer.loadAndShow(result.get(), true);
+            }
+            if (status){
+                enableAll();
+            }
+        });
+
         open.getItems().add(localFileSystemItem);
         open.getItems().add(HDFSItem);
         open.getItems().add(AWSItem);
+        open.getItems().add(azureItem);
 
         Menu saveas= new Menu("Save as...");
         subCSV = new MenuItem("CSV");
