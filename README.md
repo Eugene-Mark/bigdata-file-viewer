@@ -17,7 +17,7 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  
 ## Usage
  - Download runnable jar from [release page][1] or run from directory by `mvn exec:java -Dexec.mainClass=org.eugene.App`
- - Invoke it by `java -jar BigdataFileViewer-1.1-SNAPSHOT-jar-with-dependencies.jar`
+ - Invoke it by `java -jar BigdataFileViewer-1.2-SNAPSHOT-jar-with-dependencies.jar`
  - Open binary format file by "File" -> "Open". Currently, it can open file with parquet suffix, orc suffix and avro suffix. If no suffix specified, the tool will try to extract the it as Parquet file
  - Set the maximum rows of each page by "View" -> `Input maximum row number` -> "Go"
  - Set visible properties by "View" -> "Add/Remove Properties"
