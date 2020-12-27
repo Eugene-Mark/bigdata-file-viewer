@@ -16,9 +16,9 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  - Code is extensible to involve other data format
  
 ## Usage
- - Download runnable jar from [release page][1] or run from directory by `mvn install exec:java -Dexec.mainClass=org.eugene.App`
+ - Download runnable jar from [release page][1] or follow `Build` section to build from source code.
  - Invoke it by `java -jar BigdataFileViewer-1.2-SNAPSHOT-jar-with-dependencies.jar`
- - Open binary format file by "File" -> "Open". Currently, it can open file with parquet suffix, orc suffix and avro suffix. If no suffix specified, the tool will try to extract the it as Parquet file
+ - Open binary format file by "File" -> "Open". Currently, it can open file with parquet suffix, orc suffix and avro suffix. If no suffix specified, the tool will try to extract it as Parquet file
  - Set the maximum rows of each page by "View" -> `Input maximum row number` -> "Go"
  - Set visible properties by "View" -> "Add/Remove Properties"
  - Convert to CSV file by "File" -> "Save as" -> "CSV"
@@ -27,9 +27,9 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  [Click here for live demo][2]
  
  ## Build 
- - To build an all-in-one runnable jar, use `mvn clean compile assembly:single`
+ - Use `mvn package` to build an all-in-one runnable jar
  - Java 1.8 or higher is required
- - Make sure the Java has javafx bound. For example, I installed openjdk 1.8 on Ubuntu 18.04 and it has no javafx bound, I installed it following guide [here][3]. 
+ - Make sure the Java has javafx bound. For example, I installed openjdk 1.8 on Ubuntu 18.04 and it has no javafx bound, then I installed it following guide [here][3]. 
  
  ## Screenshots
  
