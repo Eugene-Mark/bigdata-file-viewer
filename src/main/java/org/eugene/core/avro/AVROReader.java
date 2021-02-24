@@ -23,10 +23,8 @@ public class AVROReader extends Reader {
             //DataFileReader<GenericRecord> dataFileReader = new DataFileReader<>(new File(path.toString()), datumReader);
             FileReader<GenericRecord> dataFileReader = DataFileReader.openReader(inputFile, datumReader);
             List<GenericRecord> data = new ArrayList<>();
-            GenericRecord record = null;
             while (dataFileReader.hasNext()) {
-                record = dataFileReader.next(record);
-                data.add(record);
+                data.add(dataFileReader.next());
             }
             return data;
         }catch(Exception e){
