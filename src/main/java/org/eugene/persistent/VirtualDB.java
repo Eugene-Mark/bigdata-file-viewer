@@ -1,6 +1,5 @@
 package org.eugene.persistent;
 
-import org.apache.calcite.avatica.proto.Common;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 

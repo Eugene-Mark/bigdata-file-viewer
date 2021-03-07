@@ -6,6 +6,7 @@ public class CommonData {
     private String schema;
     private List<List<String>> data;
     private List<String> propertyList;
+    private String name;
 
     public void setSchema(String schema){
         this.schema = schema;
@@ -30,4 +31,8 @@ public class CommonData {
     public List<String> getPropertyList(){
         return propertyList;
     }
+
+    public void setName(String name){this.name = name;}
+
+    public String getName(){return name;}
 }

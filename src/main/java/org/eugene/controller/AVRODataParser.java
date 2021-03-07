@@ -5,9 +5,7 @@ import org.apache.avro.Schema;
 import org.apache.avro.generic.GenericRecord;
 import org.apache.hadoop.fs.Path;
 import org.eugene.core.avro.AVROReader;
-import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
-import org.eugene.persistent.VirtualDB;
 import org.eugene.ui.Constants;
 import org.eugene.ui.Notifier;
 
@@ -18,6 +16,7 @@ public class AVRODataParser extends DataParser {
 
     @Override
     public boolean parseData(Path path) {
+        super.parseData(path);
         AVROReader reader = new AVROReader();
         List<GenericRecord> originalData = reader.read(path);
         if(originalData == null)
@@ -58,7 +57,7 @@ public class AVRODataParser extends DataParser {
             data.add(commonRecord);
         }
 
-        super.persistData(schema, propertyList, data, tableMeta);
+        super.persistData(schema, propertyList, data, tableMeta, path);
 
         return true;
     }

@@ -2,7 +2,6 @@ package org.eugene;
 
 import javafx.application.Application;
 
-
 /**
  * Hello big data!
  *

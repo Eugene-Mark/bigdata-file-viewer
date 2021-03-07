@@ -6,12 +6,14 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.eugene.persistent.PhysicalDB;
 import org.eugene.ui.CustomizedMenuBar;
 
 public class FXApplication extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
+        PhysicalDB.getInstance().init();
         MenuBar menuBar = new CustomizedMenuBar(stage);
         VBox vbox = new VBox(menuBar);
         double width = 800;
@@ -22,5 +24,7 @@ public class FXApplication extends Application {
         stage.setScene(scene);
         stage.setMaximized(true);
         stage.show();
+
     }
+
 }

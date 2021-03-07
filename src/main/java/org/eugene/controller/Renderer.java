@@ -6,6 +6,7 @@ import org.apache.hadoop.fs.Path;
 import org.eugene.core.common.AWSS3Reader;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
+import org.eugene.persistent.PhysicalDB;
 import org.eugene.persistent.VirtualDB;
 import org.eugene.ui.Constants;
 import org.eugene.ui.Dashboard;
@@ -15,6 +16,8 @@ import org.eugene.ui.Table;
 import java.io.File;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class Renderer {
 
@@ -73,10 +76,29 @@ public class Renderer {
 
     public boolean loadAndShow(){
         FileChooser filechooser = new FileChooser();
+        String location = PhysicalDB.getInstance().getLocation();
+        if(!location.equals("")){
+            System.out.println("The location returned: " + location);
+            filechooser.setInitialDirectory(new File(getDirectory(location)));
+        }else{
+            System.out.println("The location is empty");
+        }
         File selectedFile = filechooser.showOpenDialog(stage);
         String absolutePath = selectedFile.getAbsolutePath();
+        PhysicalDB.getInstance().updateLocation(absolutePath);
         Path path = new Path(absolutePath);
         return load(path);
+    }
+
+    private String getDirectory(String fullPath){
+        String regex = "(.*)[\\\\][.]*";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(fullPath);
+        String directory = "";
+        if(matcher.find()){
+            directory = matcher.group(1);
+        }
+        return directory;
     }
 
     public List<List<String>> getData(){
