@@ -1,5 +1,6 @@
 package org.eugene.persistent;
 
+import java.io.File;
 import java.sql.*;
 
 public class SqlliteWrapper {
@@ -12,8 +13,7 @@ public class SqlliteWrapper {
         }catch(ClassNotFoundException e){
             e.printStackTrace();
         }
-        String separator = "\\";
-        String url = "jdbc:sqlite:" + home_dir + separator + fileName;
+        String url = "jdbc:sqlite:" + home_dir + File.separator + fileName;
 
         try{
             connection = DriverManager.getConnection(url);
