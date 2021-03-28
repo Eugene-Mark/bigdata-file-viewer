@@ -8,8 +8,7 @@ import org.eugene.model.TableMeta;
 import org.eugene.ui.Constants;
 import org.eugene.ui.Notifier;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 public class ParquetDataParser extends DataParser{
     @Override
@@ -30,13 +29,14 @@ public class ParquetDataParser extends DataParser{
         Schema schema = firstRecord.getSchema();
 
         int rowNumber = originalData.size();
-        List<String> propertyList = new ArrayList<>();
+        Map<String, String> columnToType = new LinkedHashMap<String, String>();
+
         for (Schema.Field field: schema.getFields())
         {
-            String property = field.name();
-            propertyList.add(property);
+            columnToType.put(field.name(), field.schema().getType().getName());
         }
-        int columnNumber = propertyList.size();
+
+        int columnNumber = columnToType.size();
         TableMeta tableMeta = new TableMeta();
         tableMeta.setRow(rowNumber);
         tableMeta.setColumn(columnNumber);
@@ -55,7 +55,7 @@ public class ParquetDataParser extends DataParser{
             data.add(commonRecord);
         }
 
-        super.persistData(schema, propertyList, data, tableMeta, path);
+        super.persistData(schema, columnToType, data, tableMeta, path);
 
         return true;
     }

@@ -17,7 +17,7 @@ class SelectPropertyDialog {
     private Dialog<List<String>> dialog;
 
     public void init(Stage stage, Renderer renderer){
-        List<String> properties = VirtualDB.getInstance().getCommonData().getPropertyList();
+        List<String> properties = new ArrayList<String>(VirtualDB.getInstance().getCommonData().getColumnToType().keySet());
         dialog = new Dialog<>();
         VBox vBox = new VBox();
         VBox checkBoxGroup = new VBox(2);

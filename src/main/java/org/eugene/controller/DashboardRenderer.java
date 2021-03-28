@@ -2,6 +2,8 @@ package org.eugene.controller;
 
 import org.eugene.ui.Dashboard;
 
+import java.util.Map;
+
 public class DashboardRenderer {
     private Dashboard dashboard;
 
@@ -9,7 +11,11 @@ public class DashboardRenderer {
         this.dashboard = dashboard;
     }
 
-    public void refreshMetaInfo(String schema, String path, int rowNumber, int columnNumber){
-        dashboard.refresh(schema, path, rowNumber, columnNumber);
+    public void refreshMetaInfo(String schema, String path, int rowNumber, int columnNumber, boolean init){
+        dashboard.refresh(schema, path, rowNumber, columnNumber, init);
+    }
+
+    public void refreshAggregationPane(String columnName, Map<String, String> keyToValue){
+        dashboard.refreshAggregationPane(columnName, keyToValue);
     }
 }

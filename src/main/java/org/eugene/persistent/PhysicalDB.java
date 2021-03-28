@@ -2,6 +2,8 @@ package org.eugene.persistent;
 
 import org.eugene.model.CommonData;
 
+import java.util.Map;
+
 public class PhysicalDB{
     private static PhysicalDB instance = new PhysicalDB();
     private SqlliteWrapper sqlliteWrapper;
@@ -20,7 +22,8 @@ public class PhysicalDB{
     }
 
     public boolean persist(CommonData commonData){
-
+        this.commonData = commonData;
+        sqlliteWrapper.persistData(commonData);
         return false;
     }
 
@@ -30,5 +33,9 @@ public class PhysicalDB{
 
     public String getLocation(){
         return sqlliteWrapper.getLocation();
+    }
+
+    public Map<String,String> getAggregation(String columnName){
+        return sqlliteWrapper.getAggregrations(commonData, columnName);
     }
 }

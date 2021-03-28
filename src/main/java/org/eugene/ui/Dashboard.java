@@ -5,15 +5,13 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import javafx.geometry.Insets;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.eugene.persistent.SqlliteWrapper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +19,8 @@ import java.util.Map;
 public class Dashboard {
     private Stage stage;
     private VBox vBox;
+    Accordion accordion;
+    TitledPane aggregationPane = null;
 
     public Dashboard(Stage stage){
         this.stage = stage;
@@ -30,11 +30,12 @@ public class Dashboard {
         this.vBox = vBox;
     }
 
-    public void refresh(String schema, String path, int rowNumber, int columnNumber){
+    public void refresh(String schema, String path, int rowNumber, int columnNumber, boolean init){
         vBox.getChildren().clear();
-        Accordion accordion = new Accordion();
+        accordion = new Accordion();
         refreshSummaryPane(path, rowNumber, columnNumber, accordion);
         refreshMetaPane(schema, accordion);
+        refreshAggregationPane(accordion, "", null, init);
         vBox.getChildren().add(accordion);
     }
 
@@ -88,4 +89,43 @@ public class Dashboard {
         metaPane.setContent(metaBox);
         accordion.getPanes().add(metaPane);
     }
+
+    public void refreshAggregationPane(Accordion accordion, String columnName, Map<String, String> keyToValue, boolean init){
+        VBox aggregationBox = null;
+        if(aggregationPane == null || init == true){
+            System.out.println("aggregation is null");
+            aggregationPane = new TitledPane();
+            aggregationPane.setText("Aggregation");
+            aggregationPane.getContent();
+            aggregationBox = new VBox();
+            aggregationPane.setContent(aggregationBox);
+            accordion.getPanes().add(aggregationPane);
+            return;
+        }
+        if (keyToValue == null){
+            System.out.println("keyToValue is null");
+            Label label = new Label();
+            label.setText("Click column to show its aggregations");
+            aggregationBox = (VBox)aggregationPane.getContent();
+            aggregationBox.getChildren().add(label);
+            return;
+        }
+        aggregationBox = (VBox)aggregationPane.getContent();
+        aggregationBox.getChildren().clear();
+        ListView listView = null;
+
+        listView = new ListView();
+        listView.getItems().add(columnName + " : ");
+        listView.getItems().add(SqlliteWrapper.MAX + " : " + keyToValue.get(SqlliteWrapper.MAX));
+        listView.getItems().add(SqlliteWrapper.MIN + " : " + keyToValue.get(SqlliteWrapper.MIN));
+        listView.getItems().add(SqlliteWrapper.SUM + " : " + keyToValue.get(SqlliteWrapper.SUM));
+        listView.getItems().add(SqlliteWrapper.AVG + " : " + keyToValue.get(SqlliteWrapper.AVG));
+
+        aggregationBox.getChildren().add(listView);
+    }
+
+    public void refreshAggregationPane(String columnName, Map<String, String> keyToValue){
+        refreshAggregationPane(accordion, columnName, keyToValue, false);
+    }
+
 }

@@ -14,6 +14,7 @@ import org.eugene.ui.Main;
 import org.eugene.ui.Table;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -34,7 +35,7 @@ public class Renderer {
     }
 
     public void initUI(){
-        Table table = new Table(stage);
+        Table table = new Table(stage, this);
         Dashboard dashboard = new Dashboard(stage);
         tableRenderer.setTable(table);
         dashboardRenderer.setDashboard(dashboard);
@@ -56,9 +57,9 @@ public class Renderer {
             tableRenderer.init();
             CommonData commonData = VirtualDB.getInstance().getCommonData();
             TableMeta tableMeta = VirtualDB.getInstance().getTableMeta();
-            showingList = commonData.getPropertyList();
-            dashboardRenderer.refreshMetaInfo(commonData.getSchema(), path.toString(), tableMeta.getRow(), tableMeta.getColumn());
-            tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
+            showingList = new ArrayList<String>(commonData.getColumnToType().keySet());
+            dashboardRenderer.refreshMetaInfo(commonData.getSchema(), path.toString(), tableMeta.getRow(), tableMeta.getColumn(), true);
+            tableRenderer.refresh(showingList, showingList, tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
         }
         return status;
     }
@@ -112,7 +113,12 @@ public class Renderer {
     public void refreshTable(List<String> showingList){
         CommonData commonData = VirtualDB.getInstance().getCommonData();
         TableMeta tableMeta = VirtualDB.getInstance().getTableMeta();
-        tableRenderer.refresh(showingList, commonData.getPropertyList(), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
+        tableRenderer.refresh(showingList, new ArrayList<String>(commonData.getColumnToType().keySet()), tableMeta.getRow(), tableMeta.getColumn(), commonData.getData());
+    }
+
+    public void refreshAggregationPane(String columnName){
+        Map<String, String> keyToValue = PhysicalDB.getInstance().getAggregation(columnName);
+        dashboardRenderer.refreshAggregationPane(columnName, keyToValue);
     }
 
 }

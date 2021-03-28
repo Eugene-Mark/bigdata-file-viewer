@@ -5,6 +5,7 @@ import org.eugene.persistent.VirtualDB;
 import org.eugene.ui.Constants;
 
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CSVWriter {
@@ -15,7 +16,7 @@ public class CSVWriter {
                 out.write("");
                 return true;
             }
-            List<String> propertyList = VirtualDB.getInstance().getCommonData().getPropertyList();
+            List<String> propertyList = new ArrayList<String>(VirtualDB.getInstance().getCommonData().getColumnToType().keySet());
             int colNumber = propertyList.size();
             for (int i = 0; i < colNumber; i++) {
                 if (i == (colNumber - 1)){

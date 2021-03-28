@@ -3,12 +3,15 @@ package org.eugene.ui;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.scene.control.Pagination;
 import javafx.scene.control.TableColumn;
+import javafx.scene.control.TablePosition;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import org.eugene.controller.Renderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,9 +21,11 @@ public class Table {
     private VBox vBox;
     private TableView<List<StringProperty>> tableView;
     private Pagination pagination;
+    private Renderer renderer;
 
-    public Table(Stage stage){
+    public Table(Stage stage, Renderer renderer){
         this.stage = stage;
+        this.renderer = renderer;
     }
 
     public void setVBox(VBox vBox){
@@ -33,6 +38,19 @@ public class Table {
         if (pagination != null)
             vBox.getChildren().remove(pagination);
         tableView = new TableView();
+        final ObservableList<TablePosition> selectedCells = tableView.getSelectionModel().getSelectedCells();
+        selectedCells.addListener(new ListChangeListener<TablePosition>() {
+            @Override
+            public void onChanged(Change change) {
+                for (TablePosition pos : selectedCells) {
+                    String columnName = pos.getTableColumn().getText();
+                    if(columnName != null){
+                        renderer.refreshAggregationPane(pos.getTableColumn().getText());
+                    }
+                    System.out.println("Cell selected in row " + pos.getRow() + " and column " + pos.getTableColumn().getText());
+                }
+            }
+        });
         pagination = new Pagination();
         tableView.prefHeightProperty().bind(stage.heightProperty());
         tableView.prefWidthProperty().bind(stage.widthProperty());

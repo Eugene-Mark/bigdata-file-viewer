@@ -8,6 +8,7 @@ import org.eugene.persistent.PhysicalDB;
 import org.eugene.persistent.VirtualDB;
 
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -18,11 +19,11 @@ public class DataParser {
         return true;
     }
 
-    void persistData(Schema schema, List<String> propertyList, List<List<String>> data, TableMeta tableMeta, Path path){
+    void persistData(Schema schema, Map<String, String> columnToType, List<List<String>> data, TableMeta tableMeta, Path path){
         CommonData commonData = new CommonData();
         commonData.setSchema(schema.toString());
         commonData.setData(data);
-        commonData.setPropertyList(propertyList);
+        commonData.setColumnToType(columnToType);
         commonData.setName(name);
 
         VirtualDB.getInstance().setCommonData(commonData);
@@ -31,12 +32,15 @@ public class DataParser {
         PhysicalDB.getInstance().persist(commonData);
     }
     private String getName(Path path){
-        String regex = "[\\/ | \\\\]([\\w]+)([.](parquet|orc|avro))?";
+        String regex = ".*[\\/|\\\\]([\\w]+)[.]?";
         Pattern pattern = Pattern.compile(regex);
-        Matcher matcher = pattern.matcher(path.getName());
-        String name = "place-holder";
+        Matcher matcher = pattern.matcher(path.toString());
+        System.out.println("The path is: " + path);
+        String name = "place_holder";
         if (matcher.find()){
             name = matcher.group(1);
+        }else{
+            System.out.println("Not match");
         }
         return name;
     }
