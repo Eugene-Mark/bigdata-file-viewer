@@ -2,6 +2,7 @@ package org.eugene.persistent;
 
 import org.eugene.model.CommonData;
 
+import java.io.File;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,8 +28,7 @@ public class SqlliteWrapper {
         }catch(ClassNotFoundException e){
             e.printStackTrace();
         }
-        String separator = "\\";
-        String url = "jdbc:sqlite:" + home_dir + separator + fileName;
+        String url = "jdbc:sqlite:" + home_dir + File.separator + fileName;
 
         try{
             connection = DriverManager.getConnection(url);
