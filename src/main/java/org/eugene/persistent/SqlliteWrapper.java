@@ -159,7 +159,7 @@ public class SqlliteWrapper {
     }
 
     private String getAggregation(CommonData commonData, String columnName, String aggregation){
-        String sql = "SELECT " + aggregation + " (" + columnName + ") as r_" + aggregation + " from " + commonData.getName();
+        String sql = "SELECT " + aggregation + " (" + columnName + ") as r_" + aggregation + " from " + commonData.getName() + " where " + columnName + " != \"NULL\"";
         String result = null;
         try{
             Statement stmt = connection.createStatement();
