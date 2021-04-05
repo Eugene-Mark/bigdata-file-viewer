@@ -187,10 +187,27 @@ public class SqlliteWrapper {
         return keyToValue;
     }
 
+    private boolean tableExists(String name){
+        try{
+            DatabaseMetaData dbm = connection.getMetaData();
+            ResultSet rs = dbm.getTables(null, null, name, null);
+            if(rs.next()){
+                return true;
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return false;
+    }
+
     public boolean persistData(CommonData commonData){
+        if(tableExists(commonData.getName())){
+            return true;
+        }
         createData(commonData);
         insertData(commonData);
-        return false;
+        return true;
     }
 
     private boolean createLocation(){
