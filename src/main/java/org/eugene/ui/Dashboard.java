@@ -122,6 +122,7 @@ public class Dashboard {
         listView.getItems().add(SqlliteWrapper.AVG + " : " + keyToValue.get(SqlliteWrapper.AVG));
 
         aggregationBox.getChildren().add(listView);
+        aggregationPane.setExpanded(true);
     }
 
     public void refreshAggregationPane(String columnName, Map<String, String> keyToValue){
