@@ -4,10 +4,7 @@ import org.eugene.model.CommonData;
 
 import java.io.File;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class SqlliteWrapper {
     private Connection connection;
@@ -158,6 +155,23 @@ public class SqlliteWrapper {
         return false;
     }
 
+    public Map<String, Integer> getProportion(CommonData commonData, String columnName){
+        Map<String, Integer> itemToCount = new LinkedHashMap<String, Integer>();
+        String sql = "SELECT " + columnName + ", COUNT(" + columnName + ") from " + commonData.getName() + " group by " + columnName + " order by COUNT(" + columnName + ") DESC";
+        try{
+            Statement stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+            while(rs.next()){
+                String column = rs.getString(1);
+                int count = rs.getInt(2);
+                itemToCount.put(column,count);
+            }
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+        return itemToCount;
+    }
+
     private String getAggregation(CommonData commonData, String columnName, String aggregation){
         String sql = "SELECT " + aggregation + " (" + columnName + ") as r_" + aggregation + " from " + commonData.getName() + " where " + columnName + " != \"NULL\"";
         String result = null;
@@ -173,7 +187,7 @@ public class SqlliteWrapper {
         return result;
     }
 
-    public Map<String,String> getAggregrations(CommonData commonData, String columnName){
+    public Map<String,String> getAggregations(CommonData commonData, String columnName){
         String max = getAggregation(commonData, columnName, SqlliteWrapper.MAX);
         String min = getAggregation(commonData, columnName, SqlliteWrapper.MIN);
         String sum = getAggregation(commonData, columnName, SqlliteWrapper.SUM);

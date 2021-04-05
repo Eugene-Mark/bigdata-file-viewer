@@ -36,6 +36,10 @@ public class PhysicalDB{
     }
 
     public Map<String,String> getAggregation(String columnName){
-        return sqlliteWrapper.getAggregrations(commonData, columnName);
+        return sqlliteWrapper.getAggregations(commonData, columnName);
+    }
+
+    public Map<String, Integer> getProportion(String columnName){
+        return sqlliteWrapper.getProportion(commonData, columnName);
     }
 }

@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import javafx.geometry.Insets;
+import javafx.scene.chart.PieChart;
 import javafx.scene.control.*;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -12,6 +13,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import org.eugene.persistent.SqlliteWrapper;
+import org.eugene.persistent.VirtualDB;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,6 +23,7 @@ public class Dashboard {
     private VBox vBox;
     Accordion accordion;
     TitledPane aggregationPane = null;
+    TitledPane proportionPane = null;
 
     public Dashboard(Stage stage){
         this.stage = stage;
@@ -36,6 +39,7 @@ public class Dashboard {
         refreshSummaryPane(path, rowNumber, columnNumber, accordion);
         refreshMetaPane(schema, accordion);
         refreshAggregationPane(accordion, "", null, init);
+        refreshProportionPane(accordion, "", null, init);
         vBox.getChildren().add(accordion);
     }
 
@@ -90,20 +94,17 @@ public class Dashboard {
         accordion.getPanes().add(metaPane);
     }
 
-    public void refreshAggregationPane(Accordion accordion, String columnName, Map<String, String> keyToValue, boolean init){
+    private void refreshAggregationPane(Accordion accordion, String columnName, Map<String, String> keyToValue, boolean init){
         VBox aggregationBox = null;
         if(aggregationPane == null || init == true){
-            System.out.println("aggregation is null");
             aggregationPane = new TitledPane();
             aggregationPane.setText("Aggregation");
-            aggregationPane.getContent();
             aggregationBox = new VBox();
             aggregationPane.setContent(aggregationBox);
             accordion.getPanes().add(aggregationPane);
             return;
         }
         if (keyToValue == null){
-            System.out.println("keyToValue is null");
             Label label = new Label();
             label.setText("Click column to show its aggregations");
             aggregationBox = (VBox)aggregationPane.getContent();
@@ -127,6 +128,56 @@ public class Dashboard {
 
     public void refreshAggregationPane(String columnName, Map<String, String> keyToValue){
         refreshAggregationPane(accordion, columnName, keyToValue, false);
+    }
+
+    public void refreshProportionPane(String columnName, Map<String, Integer> itemToCount){
+        refreshProportionPane(accordion, columnName, itemToCount, false);
+    }
+
+    public void refreshProportionPane(Accordion accordion, String columnName, Map<String, Integer> itemToCount, boolean init){
+        VBox proportionBox = null;
+        if(proportionPane == null || init == true){
+            proportionPane = new TitledPane();
+            proportionPane.setText("Proportion");
+            proportionBox = new VBox();
+            proportionPane.setContent(proportionBox);
+            accordion.getPanes().add(proportionPane);
+        }
+
+        if(itemToCount == null){
+            Label label = new Label();
+            label.setText("Click column to show its proportions");
+            proportionBox = (VBox)proportionPane.getContent();
+            proportionBox.getChildren().add(label);
+            return;
+        }
+        proportionBox = (VBox)proportionPane.getContent();
+        proportionBox.getChildren().clear();
+        PieChart pieChart = new PieChart();
+
+        int maxShowing = 5;
+        int index = 0;
+        int sum = 0;
+        for(Map.Entry<String, Integer> entry: itemToCount.entrySet()){
+            String key = entry.getKey();
+            int count = itemToCount.get(key);
+            sum += count;
+            PieChart.Data slice = new PieChart.Data(key, itemToCount.get(key));
+            pieChart.getData().add(slice);
+            index++;
+            if(index == maxShowing){
+                break;
+            }
+        }
+
+        int othersCount = VirtualDB.getInstance().getTableMeta().getRow() - sum;
+        if (othersCount > 0){
+            PieChart.Data slice = new PieChart.Data("Others", othersCount);
+            pieChart.getData().add(slice);
+        }
+
+        proportionBox.getChildren().add(pieChart);
+        proportionPane.setExpanded(true);
     }
 
 }

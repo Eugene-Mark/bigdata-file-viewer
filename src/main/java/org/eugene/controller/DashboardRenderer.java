@@ -18,4 +18,8 @@ public class DashboardRenderer {
     public void refreshAggregationPane(String columnName, Map<String, String> keyToValue){
         dashboard.refreshAggregationPane(columnName, keyToValue);
     }
+
+    public void refreshProportionPane(String columnName, Map<String, Integer> itemToCount){
+        dashboard.refreshProportionPane(columnName, itemToCount);
+    }
 }

@@ -46,6 +46,7 @@ public class Table {
                     String columnName = pos.getTableColumn().getText();
                     if(columnName != null){
                         renderer.refreshAggregationPane(pos.getTableColumn().getText());
+                        renderer.refreshProportionPane(pos.getTableColumn().getText());
                     }
                     System.out.println("Cell selected in row " + pos.getRow() + " and column " + pos.getTableColumn().getText());
                 }

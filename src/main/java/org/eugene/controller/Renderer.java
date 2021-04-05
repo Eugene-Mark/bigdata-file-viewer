@@ -132,4 +132,20 @@ public class Renderer {
         dashboardRenderer.refreshAggregationPane(columnName, keyToValue);
     }
 
+    public void refreshProportionPane(String columnName){
+        CommonData commonData = VirtualDB.getInstance().getCommonData();
+        List<String> typeList = new ArrayList<String>();
+        typeList.add("INTEGER");
+        typeList.add("INT");
+        typeList.add("LONG");
+        typeList.add("DOUBLE");
+        typeList.add("FLOAT");
+        typeList.add("UNION");
+        if(typeList.contains(commonData.getColumnToType().get(columnName).toUpperCase())){
+            return;
+        }
+        Map<String, Integer> itemToCount = PhysicalDB.getInstance().getProportion(columnName);
+        dashboardRenderer.refreshProportionPane(columnName, itemToCount);
+    }
+
 }
