@@ -12,6 +12,35 @@
   <!-- FIXME change it to the project's website -->
   <url>http://www.example.com</url>
 
+  <profiles>
+    <profile>
+      <id>j11</id>
+      <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+      </properties>
+      <dependencies>
+        <dependency>
+          <groupId>org.openjfx</groupId>
+          <artifactId>javafx-controls</artifactId>
+          <version>11.0.2</version>
+        </dependency>
+      </dependencies>
+      <build>
+        <plugins>
+          <plugin>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-maven-plugin</artifactId>
+            <version>0.0.3</version>
+            <configuration>
+              <mainClass>org.eugene.FXApplication</mainClass>
+            </configuration>
+          </plugin>
+        </plugins>
+      </build>
+    </profile>
+  </profiles>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
@@ -70,11 +99,6 @@
       <artifactId>sqlite-jdbc</artifactId>
       <version>3.34.0</version>
     </dependency>
-    <dependency>
-      <groupId>org.openjfx</groupId>
-      <artifactId>javafx-controls</artifactId>
-      <version>11.0.2</version>
-    </dependency>
   </dependencies>
 
   <build>
@@ -119,14 +143,7 @@
           </execution>
         </executions>
       </plugin>
-      <plugin>
-        <groupId>org.openjfx</groupId>
-        <artifactId>javafx-maven-plugin</artifactId>
-        <version>0.0.3</version>
-        <configuration>
-          <mainClass>org.eugene.FXApplication</mainClass>
-        </configuration>
-      </plugin>
+
     </plugins>
   </build>
 </project>
