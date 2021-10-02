@@ -37,7 +37,8 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  ![Main page](resources/main-page.png)
  ![Data Proportions](resources/proportion-page.png)
  
-
+ ## Thanks
+ Speicial thanks to [Meindert Deen][5], [sedzisz][6], [barabulkit][7] who have contributed to the project
 
 
 
@@ -45,4 +46,6 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
 [2]: https://github.com/Eugene-Mark/bigdata-file-viewer/tree/master/resources/demo.gif
 [3]: https://stackoverflow.com/a/56166582/3378204
 [4]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases/tag/v1.1.1
-
+[5]: https://github.com/mdeenah
+[6]: https://github.com/sedzisz
+[7]:https://github.com/barabulkit
