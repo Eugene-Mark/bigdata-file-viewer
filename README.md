@@ -28,9 +28,9 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  [Click here for live demo][2]
  
  ## Build 
- - Use `mvn package` to build an all-in-one runnable jar
+ - Use `mvn package` to build an all-in-one runnable jar. If you're using JDK11 or higher, using `mvn package -Pjava11` to include openJFX as Maven dependency directly.
  - Java 1.8 or higher is required
- - Make sure the Java has javafx bound. For example, I installed openjdk 1.8 on Ubuntu 18.04 and it has no javafx bound, then I installed it following guide [here][3]. 
+ - If you're using Java 1.8 or lower, make sure the Java has javafx bound. For example, I installed openjdk 1.8 on Ubuntu 18.04 and it has no javafx bound, then I installed it following guide [here][3]. 
  
  ## Screenshots
  
