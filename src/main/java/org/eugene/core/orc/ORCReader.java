@@ -20,6 +20,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import org.eugene.ui.Notifier;
+
 public class ORCReader extends org.eugene.core.common.Reader {
     public boolean read(Path path){
         try{
@@ -69,7 +71,7 @@ public class ORCReader extends org.eugene.core.common.Reader {
             return true;
         }catch(Exception e){
             e.printStackTrace();
-            Notifier.error("Failed to load the file! The exception throws is:  " + e.getMessage());
+            Notifier.errorWithException(e);
             return false;
         }
 

@@ -29,7 +29,7 @@ public class ParquetReader extends Reader {
             return list;
         }catch(Exception e){
             e.printStackTrace();
-            Notifier.error("Failed to load the file! The exception throws is:  " + e.getMessage());
+            Notifier.errorWithException(e);
             return null;
         }
     }

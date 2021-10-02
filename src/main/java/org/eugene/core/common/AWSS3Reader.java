@@ -12,6 +12,8 @@ import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 
+import org.eugene.ui.Notifier;
+
 public class AWSS3Reader {
     public Path read(String bucketName, String keyName, String region, String accessKey, String secretKey){
         BasicAWSCredentials basicAWSCredentials = new BasicAWSCredentials(accessKey, secretKey);
@@ -33,13 +35,16 @@ public class AWSS3Reader {
             inputStream.close();
             return new Path(tmp.toPath().toString());
         } catch (AmazonServiceException e) {
-            System.err.println(e.getErrorMessage());
+            e.printStackTrace();
+            Notifier.errorWithException(e);
             return null;
         } catch (FileNotFoundException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Notifier.errorWithException(e);
             return null;
         } catch (IOException e) {
-            System.err.println(e.getMessage());
+            e.printStackTrace();
+            Notifier.errorWithException(e);
             return null;
         }
     }
