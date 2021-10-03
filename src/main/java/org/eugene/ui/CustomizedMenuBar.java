@@ -23,6 +23,8 @@ public class CustomizedMenuBar extends MenuBar {
     private final Button goButton;
     private final MenuItem selectPropertiesMenuItem;
     private boolean firstTime = true;
+    private final TextField csvDelimiterField = new TextField();
+    private final Button setDelimiterButton;
 
     public CustomizedMenuBar(Stage stage){
         //File menu
@@ -95,7 +97,8 @@ public class CustomizedMenuBar extends MenuBar {
                 absolutePath = absolutePath.concat(".csv");
             }
             ArrayList<List<String>> list = (ArrayList<List<String>>) renderer.getData();
-            CSVWriter.write(new Path(absolutePath), list);
+            String delimiter = csvDelimiterField.getText();
+            CSVWriter.write(new Path(absolutePath), list, delimiter);
         });
         MenuItem close = new MenuItem("Close");
         close.setOnAction(event -> {
@@ -148,7 +151,36 @@ public class CustomizedMenuBar extends MenuBar {
 
         this.getMenus().add(file);
         this.getMenus().add(view);
-        disableAll();
+
+        //Settings menu
+        Menu settings = new Menu();
+        settings.setText("Settings");
+        CustomMenuItem csvDelimiterItem = new CustomMenuItem();
+        Label delimiterLabel = new Label("  Output CSV's delimiter");
+        delimiterLabel.setTextFill(Color.gray(0.8));
+        delimiterLabel.setPadding(new Insets(5,0,5,0));
+        csvDelimiterField.setText(",");
+        setDelimiterButton = new Button("Set");
+        setDelimiterButton.setOnAction(event -> {
+            try {
+                String delimiter = csvDelimiterField.getText();
+                if (delimiter.isEmpty()){
+                    Notifier.error("No delimiter provided, comma is used by default");
+                    csvDelimiterField.setText(",");
+                    return;
+                }
+                renderer.refreshTable();
+            }catch(Exception e){
+                Notifier.error("String required");
+                csvDelimiterField.setText(",");
+                return;
+            }
+        });
+        HBox settingsHBox = new HBox(csvDelimiterField, setDelimiterButton);
+        VBox settingsVBox = new VBox(delimiterLabel, settingsHBox);
+        csvDelimiterItem.setContent(settingsVBox);
+        settings.getItems().add(csvDelimiterItem);
+        this.getMenus().add(settings);
 
         //About menu
         Menu about = new Menu();
@@ -163,12 +195,15 @@ public class CustomizedMenuBar extends MenuBar {
         about.getItems().add(aboutItem);
         this.getMenus().add(about);
 
+        disableAll();
     }
 
     private void disableAll(){
         subCSV.setDisable(true);
         textField.setDisable(true);
         goButton.setDisable(true);
+        csvDelimiterField.setDisable(true);
+        setDelimiterButton.setDisable(true);
         selectPropertiesMenuItem.setDisable(true);
     }
 
@@ -176,6 +211,8 @@ public class CustomizedMenuBar extends MenuBar {
         subCSV.setDisable(false);
         textField.setDisable(false);
         goButton.setDisable(false);
+        csvDelimiterField.setDisable(false);
+        setDelimiterButton.setDisable(false);
         selectPropertiesMenuItem.setDisable(false);
     }
 }

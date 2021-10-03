@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class CSVWriter {
-    public static boolean write(Path path, List<List<String>> data){
+    public static boolean write(Path path, List<List<String>> data, String delimiter){
         try{
             PrintWriter out = new PrintWriter(path.toString());
             if (data.size() == 0) {
@@ -23,7 +23,7 @@ public class CSVWriter {
                     out.println(propertyList.get(i));
                 }else{
                     out.print(propertyList.get(i));
-                    out.print(",");
+                    out.print(delimiter);
                 }
             }
 
@@ -33,7 +33,7 @@ public class CSVWriter {
                         if (record.get(i) == null)
                             out.println(Constants.NULL);
                         else {
-                                if (record.get(i).toString().contains(",")) {
+                                if (record.get(i).toString().contains(delimiter)) {
                                     out.println("\"" + record.get(i) + "\"");
                                 }else{
                                     out.println(record.get(i));
@@ -44,13 +44,13 @@ public class CSVWriter {
                             out.print(Constants.NULL);
                         }
                         else{
-                            if (record.get(i).toString().contains(",")){
+                            if (record.get(i).toString().contains(delimiter)){
                                 out.print("\"" + record.get(i) + "\"");
                             }else{
                                 out.print(record.get(i));
                             }
                         }
-                        out.print(",");
+                        out.print(delimiter);
                     }
                 }
             }
