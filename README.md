@@ -18,7 +18,7 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  
 ## Usage
  - Download runnable jar from [release page][1] or follow `Build` section to build from source code.
- - Invoke it by `java -jar BigdataFileViewer-1.2-SNAPSHOT-jar-with-dependencies.jar`
+ - Invoke it by `java -jar BigdataFileViewer-1.2-SNAPSHOT-jar-with-dependencies.jar` or invoke with parameter '-a' which means enable experimental analytics feature
  - Open binary format file by "File" -> "Open". Currently, it can open file with parquet suffix, orc suffix and avro suffix. If no suffix specified, the tool will try to extract it as Parquet file
  - Set the maximum rows of each page by "View" -> `Input maximum row number` -> "Go"
  - Set visible properties by "View" -> "Add/Remove Properties"
