@@ -24,7 +24,7 @@ public class PhysicalDB{
     public boolean persist(CommonData commonData){
         this.commonData = commonData;
         sqlliteWrapper.persistData(commonData);
-        return false;
+        return true;
     }
 
     public void updateLocation(String path){

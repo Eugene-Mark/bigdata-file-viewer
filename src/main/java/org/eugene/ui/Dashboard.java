@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.eugene.config.Config;
 import org.eugene.persistent.SqlliteWrapper;
 import org.eugene.persistent.VirtualDB;
 
@@ -38,8 +39,10 @@ public class Dashboard {
         accordion = new Accordion();
         refreshSummaryPane(path, rowNumber, columnNumber, accordion);
         refreshMetaPane(schema, accordion);
-        refreshAggregationPane(accordion, "", null, init);
-        refreshProportionPane(accordion, "", null, init);
+        if(Config.getInstance().enableAnalytics()){
+            refreshAggregationPane(accordion, "", null, init);
+            refreshProportionPane(accordion, "", null, init);
+        }
         vBox.getChildren().add(accordion);
     }
 

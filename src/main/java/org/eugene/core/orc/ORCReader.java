@@ -6,6 +6,7 @@ import org.apache.hadoop.hive.ql.io.orc.Reader;
 import org.apache.hadoop.hive.ql.io.orc.RecordReader;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
 import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
+import org.eugene.config.Config;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.PhysicalDB;
@@ -67,7 +68,9 @@ public class ORCReader extends org.eugene.core.common.Reader {
             tableMeta.setRow(data.size());
             VirtualDB.getInstance().setCommonData(commonData);
             VirtualDB.getInstance().setTableMeta(tableMeta);
-            PhysicalDB.getInstance().persist(commonData);
+            if(Config.getInstance().enableAnalytics()){
+                PhysicalDB.getInstance().persist(commonData);
+            }
             return true;
         }catch(Exception e){
             e.printStackTrace();

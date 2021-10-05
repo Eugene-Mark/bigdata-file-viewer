@@ -2,6 +2,7 @@ package org.eugene.controller;
 
 import org.apache.avro.Schema;
 import org.apache.hadoop.fs.Path;
+import org.eugene.config.Config;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.PhysicalDB;
@@ -29,7 +30,9 @@ public class DataParser {
         VirtualDB.getInstance().setCommonData(commonData);
         VirtualDB.getInstance().setTableMeta(tableMeta);
 
-        PhysicalDB.getInstance().persist(commonData);
+        if(Config.getInstance().enableAnalytics()){
+            PhysicalDB.getInstance().persist(commonData);
+        }
     }
     private String getName(Path path){
         String regex = ".*[\\/|\\\\]([\\w]+)[.]?";
