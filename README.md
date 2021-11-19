@@ -37,9 +37,11 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
  ![Main page](resources/main-page.png)
  ![Data Proportions](resources/proportion-page.png)
  
+ ## Limitation
+ The INT96 data type is deprecated per [parqeut-mr][9], so please expect `java.lang.IllegalArgumentException: INT96 is deprecated.` if you're trying to open a parquet file contains INT96 data type. 
+ 
  ## Thanks
  Speicial thanks to [Meindert Deen][5], [sedzisz][6], [barabulkit][7], [marcomalva][8] who have contributed to the project.
-
 
 
 [1]: https://github.com/Eugene-Mark/bigdata-file-viewer/releases
@@ -50,3 +52,4 @@ Note, you're recommended to download release [v1.1.1][4] to if you just want to 
 [6]: https://github.com/sedzisz
 [7]: https://github.com/barabulkit
 [8]: https://github.com/marcomalva
+[9]: https://issues.apache.org/jira/browse/PARQUET-1480
