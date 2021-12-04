@@ -14,6 +14,7 @@ public class PhysicalDB{
 
     public void init(){
         sqlliteWrapper = new SqlliteWrapper();
+        String databaseName = "bdf.db";
         sqlliteWrapper.createNewDatabase("bdf.db");
     }
 

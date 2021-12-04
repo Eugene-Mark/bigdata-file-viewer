@@ -15,6 +15,7 @@ import javafx.stage.Stage;
 import org.eugene.config.Config;
 import org.eugene.persistent.SqlliteWrapper;
 import org.eugene.persistent.VirtualDB;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -25,6 +26,13 @@ public class Dashboard {
     Accordion accordion;
     TitledPane aggregationPane = null;
     TitledPane proportionPane = null;
+
+    @Value("${summary-pane-font-size}")
+    int fontSize;
+    @Value("${summary-pane-box-padding}")
+    int padding;
+    @Value("${proportion-max-item}")
+    int maxShowing;
 
     public Dashboard(Stage stage){
         this.stage = stage;
@@ -47,8 +55,6 @@ public class Dashboard {
     }
 
     private void refreshSummaryPane(String path, int rowNumber, int columnNumber, Accordion accordion){
-        final int fontSize = 15;
-        final int padding = 10;
         TitledPane summaryPane = new TitledPane();
         summaryPane.setText("Basic Information");
 

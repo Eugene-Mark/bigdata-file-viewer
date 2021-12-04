@@ -5,16 +5,18 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import org.eugene.controller.Renderer;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.util.HashMap;
 import java.util.Map;
 
 public class SetAWSDialog {
     private Dialog<Map<String, String>> dialog;
-
+    @Value("${aws-dialog-width}")
+    private int dialogWidth;
     public void init(Stage stage, Renderer renderer) {
         dialog = new Dialog<>();
-        dialog.setWidth(200);
+        dialog.setWidth(dialogWidth);
         VBox vBox = new VBox();
         Label bucketNameLabel = new Label();
         bucketNameLabel.setText("Bucket Name:  ");

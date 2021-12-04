@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 import org.apache.hadoop.fs.Path;
 import org.eugene.controller.Renderer;
 import org.eugene.util.CSVWriter;
+import org.springframework.beans.factory.annotation.Value;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -25,6 +26,9 @@ public class CustomizedMenuBar extends MenuBar {
     private boolean firstTime = true;
     private final TextField csvDelimiterField = new TextField();
     private final Button setDelimiterButton;
+
+    @Value("${menubar-label-gray-level}")
+    double grayLevel;
 
     public CustomizedMenuBar(Stage stage){
         //File menu
@@ -113,7 +117,7 @@ public class CustomizedMenuBar extends MenuBar {
         view.setText("View");
         CustomMenuItem pageRowNumItem = new CustomMenuItem();
         Label label = new Label("  Maximum Row Number per Page");
-        label.setTextFill(Color.gray(0.8));
+        label.setTextFill(Color.gray(grayLevel));
         label.setPadding(new Insets(5,0,5,0));
         textField = new TextField();
         textField.setText(String.valueOf(Constants.MAX_ROW_NUM));
@@ -157,7 +161,7 @@ public class CustomizedMenuBar extends MenuBar {
         settings.setText("Settings");
         CustomMenuItem csvDelimiterItem = new CustomMenuItem();
         Label delimiterLabel = new Label("  Output CSV's delimiter");
-        delimiterLabel.setTextFill(Color.gray(0.8));
+        delimiterLabel.setTextFill(Color.gray(grayLevel));
         delimiterLabel.setPadding(new Insets(5,0,5,0));
         csvDelimiterField.setText(",");
         setDelimiterButton = new Button("Set");
