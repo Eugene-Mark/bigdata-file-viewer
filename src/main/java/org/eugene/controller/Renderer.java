@@ -2,6 +2,8 @@ package org.eugene.controller;
 
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+
+import org.apache.commons.lang3.SystemUtils;
 import org.apache.hadoop.fs.Path;
 import org.eugene.core.common.AWSS3Reader;
 import org.eugene.model.CommonData;
@@ -13,12 +15,16 @@ import org.eugene.ui.Dashboard;
 import org.eugene.ui.Main;
 import org.eugene.ui.Table;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.InputStreamReader;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 public class Renderer {
 
@@ -85,11 +91,43 @@ public class Renderer {
             System.out.println("The location is empty");
         }
         File selectedFile = filechooser.showOpenDialog(stage);
-        String absolutePath = selectedFile.getAbsolutePath();
+        String absolutePath = resolveWindowsShortPath(selectedFile.getAbsolutePath());
         PhysicalDB.getInstance().updateLocation(absolutePath);
         Path path = new Path(absolutePath);
         return load(path);
     }
+    
+    String resolveWindowsShortPath(String input) {
+		if (SystemUtils.IS_OS_WINDOWS) {
+			if (Paths.get(input).toAbsolutePath().toString().contains("~")) {
+				java.nio.file.Path inputPath = Paths.get(input);
+				String psDosToLongPathCmdFmt = "powershell \"(Get-Item -LiteralPath '" + inputPath.toAbsolutePath().toString() +"').FullName\"";
+				System.out.println("sada-fix: dos 8.3 input path: " + input);
+				System.out.println("sada-fix: running conversion cmd: " + psDosToLongPathCmdFmt);
+				try {
+					String output = "";
+					int exitVal = 0;
+					try {
+						Process proc = Runtime.getRuntime().exec(psDosToLongPathCmdFmt);
+						output = new BufferedReader(new InputStreamReader(proc.getInputStream()))
+								.lines().collect(Collectors.joining(System.lineSeparator()));
+						proc.waitFor();
+						exitVal = proc.exitValue();
+					} catch(Exception e) {
+						e.printStackTrace();
+						System.out.println("sada-fix: powershell cmd failed. Exit val " + exitVal);
+						System.out.println("sada-fix: revert to default path");
+						output = input;
+					}
+					System.out.println("sada-fix: output: " + output);
+					return output;
+				} catch (Exception e) {
+					return input;
+				}
+			}
+		} 
+		return input;
+	}
 
     private String getDirectory(String fullPath){
         String regex = "(.*)[\\\\][.]*";
