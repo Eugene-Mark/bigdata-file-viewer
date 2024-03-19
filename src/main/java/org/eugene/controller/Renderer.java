@@ -94,8 +94,8 @@ public class Renderer {
 		String absolutePath = selectedFile.getAbsolutePath();
 		if (SystemUtils.IS_OS_WINDOWS) {
 			absolutePath = resolveShortPath(selectedFile.getAbsolutePath());
+			System.out.println("Updated location for windows : " + absolutePath);
 		}
-		System.out.println("Updated location : " + absolutePath);
 		PhysicalDB.getInstance().updateLocation(absolutePath);
 		Path path = new Path(absolutePath);
 		return load(path);
