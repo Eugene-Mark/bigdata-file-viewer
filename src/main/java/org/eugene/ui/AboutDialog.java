@@ -7,7 +7,7 @@ import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
-import java.awt.*;
+import java.awt.Desktop;
 import java.net.URI;
 
 public class AboutDialog {

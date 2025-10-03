@@ -22,11 +22,10 @@ public class PhysicalDB{
         return instance;
     }
 
-    public boolean persist(CommonData commonData){
+    public void persist(CommonData commonData){
         this.commonData = commonData;
         sqlliteWrapper.persistData(commonData);
-        return true;
-    }
+	}
 
     public void updateLocation(String path){
         sqlliteWrapper.updateLocation(path);

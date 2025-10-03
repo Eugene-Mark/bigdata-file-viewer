@@ -1,63 +1,67 @@
 package org.eugene.ui;
 
-import javafx.scene.control.*;
-import javafx.scene.layout.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Priority;
 
-import java.io.*;
+import java.io.PrintWriter;
+import java.io.StringWriter;
 
 public class Notifier {
-    public static void warn(String message){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        alert.setTitle("Warning!");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+  public static void warn(String message) {
+	Alert alert = new Alert(Alert.AlertType.WARNING);
+	alert.setTitle("Warning!");
+	alert.setContentText(message);
+	alert.showAndWait();
+  }
 
-    public static void errorWithException(Exception exception){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error!");
-        alert.setContentText("Failed to load the file! The exception throws is: ");
-        showExceptions(alert, exception);
-    }
+  public static void errorWithException(Exception exception) {
+	Alert alert = new Alert(Alert.AlertType.ERROR);
+	alert.setTitle("Error!");
+	alert.setContentText("Failed to load the file! The exception throws is: ");
+	showExceptions(alert, exception);
+  }
 
-    public static void error(String message){
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Error!");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+  public static void error(String message) {
+	Alert alert = new Alert(Alert.AlertType.ERROR);
+	alert.setTitle("Error!");
+	alert.setContentText(message);
+	alert.showAndWait();
+  }
 
-    public static void info(String message){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info!");
-        alert.setContentText(message);
-        alert.showAndWait();
-    }
+  public static void info(String message) {
+	Alert alert = new Alert(Alert.AlertType.INFORMATION);
+	alert.setTitle("Info!");
+	alert.setContentText(message);
+	alert.showAndWait();
+  }
 
-    public static void showExceptions(Alert alert, Exception exception){
-        StringWriter sw = new StringWriter();
-        PrintWriter pw = new PrintWriter(sw);
-        exception.printStackTrace(pw);
-        String message = sw.toString();
+  public static void showExceptions(Alert alert, Exception exception) {
+	StringWriter sw = new StringWriter();
+	PrintWriter pw = new PrintWriter(sw);
+	exception.printStackTrace(pw);
+	String message = sw.toString();
 
-        Label label = new Label("Detailed Message:");
+	Label label = new Label("Detailed Message:");
 
-        TextArea textArea = new TextArea(message);
-        textArea.setEditable(false);
-        textArea.setWrapText(true);
+	TextArea textArea = new TextArea(message);
+	textArea.setEditable(false);
+	textArea.setWrapText(true);
 
-        textArea.setMaxWidth(Double.MAX_VALUE);
-        textArea.setMaxHeight(Double.MAX_VALUE);
-        GridPane.setVgrow(textArea, Priority.ALWAYS);
-        GridPane.setHgrow(textArea, Priority.ALWAYS);
+	textArea.setMaxWidth(Double.MAX_VALUE);
+	textArea.setMaxHeight(Double.MAX_VALUE);
+	GridPane.setVgrow(textArea, Priority.ALWAYS);
+	GridPane.setHgrow(textArea, Priority.ALWAYS);
 
-        GridPane contentPane = new GridPane();
-        contentPane.setMaxWidth(Double.MAX_VALUE);
-        contentPane.add(label, 0, 0);
-        contentPane.add(textArea, 0, 1);
+	GridPane contentPane = new GridPane();
+	contentPane.setMaxWidth(Double.MAX_VALUE);
+	contentPane.add(label, 0, 0);
+	contentPane.add(textArea, 0, 1);
 
-        // Set expandable Exception into the dialog pane.
-        alert.getDialogPane().setExpandableContent(contentPane);
-        alert.showAndWait();
-    }
+	// Set expandable Exception into the dialog pane.
+	alert.getDialogPane().setExpandableContent(contentPane);
+	alert.showAndWait();
+  }
 }

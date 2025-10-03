@@ -5,16 +5,16 @@ import javafx.stage.Popup;
 import javafx.stage.Stage;
 
 public class ProgressWorker {
-    private Popup popup;
+  private Popup popup;
 
-    public void start(Stage stage){
-        popup = new Popup();
-        ProgressBar progressBar = new ProgressBar();
-        popup.getContent().add(progressBar);
-        popup.show(stage);
-    }
+  public void start(Stage stage) {
+	popup = new Popup();
+	ProgressBar progressBar = new ProgressBar();
+	popup.getContent().add(progressBar);
+	popup.show(stage);
+  }
 
-    public void end(){
-        popup.hide();
-    }
+  public void end() {
+	popup.hide();
+  }
 }

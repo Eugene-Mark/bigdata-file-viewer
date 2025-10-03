@@ -6,11 +6,13 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+
+import java.awt.Dimension;
+import java.awt.Toolkit;
+
 import org.eugene.persistent.PhysicalDB;
 import org.eugene.ui.CustomizedMenuBar;
 import org.springframework.beans.factory.annotation.Value;
-
-import java.awt.*;
 
 public class FXApplication extends Application {
 
@@ -20,7 +22,7 @@ public class FXApplication extends Application {
     double height;
 
     @Override
-    public void start(Stage stage) throws Exception {
+    public void start(Stage stage) {
         //Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("sample.fxml"));
         PhysicalDB.getInstance().init();
         MenuBar menuBar = new CustomizedMenuBar(stage);
@@ -35,5 +37,4 @@ public class FXApplication extends Application {
         stage.setScene(scene);
         stage.show();
     }
-
 }

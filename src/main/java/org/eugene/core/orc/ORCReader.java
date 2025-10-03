@@ -6,7 +6,7 @@ import org.apache.hadoop.hive.ql.io.orc.Reader;
 import org.apache.hadoop.hive.ql.io.orc.RecordReader;
 import org.apache.hadoop.hive.serde2.objectinspector.StructField;
 import org.apache.hadoop.hive.serde2.objectinspector.StructObjectInspector;
-import org.eugene.config.Config;
+import org.eugene.config.AnalyticsSettings;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.PhysicalDB;
@@ -20,8 +20,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import org.eugene.ui.Notifier;
 
 public class ORCReader extends org.eugene.core.common.Reader {
     public boolean read(Path path){
@@ -68,7 +66,7 @@ public class ORCReader extends org.eugene.core.common.Reader {
             tableMeta.setRow(data.size());
             VirtualDB.getInstance().setCommonData(commonData);
             VirtualDB.getInstance().setTableMeta(tableMeta);
-            if(Config.getInstance().enableAnalytics()){
+            if(AnalyticsSettings.getInstance().isAnalyticsEnabled()){
                 PhysicalDB.getInstance().persist(commonData);
             }
             return true;
@@ -93,5 +91,4 @@ public class ORCReader extends org.eugene.core.common.Reader {
         }
         return name;
     }
-
 }

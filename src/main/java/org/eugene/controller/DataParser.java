@@ -2,7 +2,7 @@ package org.eugene.controller;
 
 import org.apache.avro.Schema;
 import org.apache.hadoop.fs.Path;
-import org.eugene.config.Config;
+import org.eugene.config.AnalyticsSettings;
 import org.eugene.model.CommonData;
 import org.eugene.model.TableMeta;
 import org.eugene.persistent.PhysicalDB;
@@ -30,7 +30,7 @@ public class DataParser {
         VirtualDB.getInstance().setCommonData(commonData);
         VirtualDB.getInstance().setTableMeta(tableMeta);
 
-        if(Config.getInstance().enableAnalytics()){
+        if(AnalyticsSettings.getInstance().isAnalyticsEnabled()){
             PhysicalDB.getInstance().persist(commonData);
         }
     }
